@@ -1,0 +1,1 @@
+export const BASE_URL = 'http://sprint123-001-site1.ctempurl.com/api';

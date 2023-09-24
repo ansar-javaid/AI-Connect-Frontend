@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "slug": "ai-connect",
+    "name": "AI Connect",
+    "orientation": "portrait",
+    "icon": "./assets/app.png",
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/app.png"
+      },
+      "package": "com.ansar.connect"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1efd94ad-6ca7-46ba-857b-252b451396d5"
+      }
+    }
+  }
+}
