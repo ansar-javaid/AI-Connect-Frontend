@@ -34,7 +34,7 @@ export default function PrivacyPolicy({ navigation }) {
                 colors={["#0094ff", "#00d1ff"]}
                 style={styles.searchContainer}
             >
-                <Text style={[styles.welcomeText, styles.extraBold]}>CU CONNECT</Text>
+                <Text style={[styles.welcomeText, styles.extraBold]}>AI CONNECT</Text>
             </LinearGradient>
             <Text style={[styles.content]}>At Cu-Connect, we value your privacy and are committed to protecting your personal information. {"\n"}This privacy policy outlines the type of information we collect, how we use it, and the measures we take to ensure its security.{"\n"}{"\n"}
                 1. Information we collect:{"\n"}{"\n"}

@@ -203,7 +203,7 @@ export default function Login({ navigation }) {
         style={styles.logoImage }
         source={require("../assets/comsatslogo.png")}
       />
-      <Text style={[styles.logoText, styles.bold]}>CU CONNECT</Text>
+      <Text style={[styles.logoText, styles.bold]}>AI CONNECT</Text>
 
       <ScrollView
         style={{

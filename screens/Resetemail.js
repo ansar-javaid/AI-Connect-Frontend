@@ -48,7 +48,7 @@ const spin = spinValue.interpolate({
         style={[styles.logoImage, {transform: [{rotateY: spin}]}]}
         source={require("../assets/comsatslogo.png")}
       />
-                <Text style={styles.logoText}> CU CONNECT</Text>
+                <Text style={styles.logoText}> AI CONNECT</Text>
             <View style={styles.signupContent}>
                 <ScrollView style={{ backgroundColor: '#f1f2f3', borderTopLeftRadius: 50, borderTopRightRadius: 50 }}>
                 <Image source={require('../assets/bg1.png')} style={styles.bg1Image}/>

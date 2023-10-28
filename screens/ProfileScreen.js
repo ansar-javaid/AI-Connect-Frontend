@@ -259,7 +259,7 @@ export default function ProfileScreen1({ route, navigation }) {
           style={styles.backgroundGradeint}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text style={styles.CuConect}>CU CONNECT</Text>
+            <Text style={styles.CuConect}>AI CONNECT</Text>
 
             <TouchableOpacity>
               <Image

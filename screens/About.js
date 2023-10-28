@@ -34,7 +34,7 @@ export default function About({ navigation }) {
                 colors={["#0094ff", "#00d1ff"]}
                 style={styles.searchContainer}
             >
-                <Text style={[styles.welcomeText, styles.extraBold]}>CU CONNECT</Text>
+                <Text style={[styles.welcomeText, styles.extraBold]}>AI CONNECT</Text>
             </LinearGradient>
             <Text style={[styles.content]}>Welcome to Cu-Connect, the social media app designed exclusively for university students! Our team is excited to offer a platform where students can connect with each other. {"\n"}
                 We understand that university can be a challenging and sometimes overwhelming experience, which is why we created Cu-Connect as a way to support and empower students.{"\n"}

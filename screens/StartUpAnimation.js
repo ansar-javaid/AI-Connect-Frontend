@@ -36,7 +36,7 @@ export default function StartUpAnimation({ navigation }) {
       colors={["#105DA5", "#4B277E"]}
       style={styles.container}
     >
-      <Text style={styles.cuconnect}>CU CONNECT</Text>
+      <Text style={styles.cuconnect}>AI CONNECT</Text>
       <Animated.Image
         source={comsatslogo}
         style={[styles.logo, { transform: [{ rotateY: spin }] }]}

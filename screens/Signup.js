@@ -101,6 +101,7 @@ export default function Signup({ navigation }) {
           error.response.data.message + " " + error.response.status,
           "Try Again!",
         ]);
+        console.log(error.response);
       }
       setModalVisible(true);
     }

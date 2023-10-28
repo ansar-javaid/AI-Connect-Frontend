@@ -96,7 +96,7 @@ export default function UserHome({ navigation }) {
         colors={["#0094ff", "#00d1ff"]}
         style={styles.searchContainer}
       >
-        <Text style={[styles.welcomeText, styles.extraBold]}>CU CONNECT</Text>
+        <Text style={[styles.welcomeText, styles.extraBold]}>AI CONNECT</Text>
         <TouchableOpacity
           style={styles.search}
           onPress={() => navigation.navigate("SearchScreen")}

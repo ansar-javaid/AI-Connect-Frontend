@@ -52,7 +52,7 @@ const NotificationScreen = ({ navigation }) => {
         colors={["#00D1FF", "#0094FF"]}
         style={styles.rectangletop}
       ></LinearGradient>
-      <Text style={styles.CuConect}>CU CONNECT</Text>
+      <Text style={styles.CuConect}>AI CONNECT</Text>
       <Text style={styles.welcome}>Welcome {name}</Text>
       {/* Notifications */}
       <Text style={styles.Notifications}>Notifications</Text>

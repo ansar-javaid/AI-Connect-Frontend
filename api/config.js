@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://sprint123-001-site1.ctempurl.com/api';
+export const BASE_URL = 'http://gdsccui-001-site1.ftempurl.com/api';

@@ -30,7 +30,7 @@ const MenuScreen = ({ navigation }) => {
         colors={["#00D1FF", "#0094FF"]}
         style={styles.rectangletop}
       >
-        <Text style={styles.CuConect}>CU CONNECT</Text>
+        <Text style={styles.CuConect}>AI CONNECT</Text>
         <Text style={styles.Welcomemsg}>Welcome {name}</Text>
       </LinearGradient>
 

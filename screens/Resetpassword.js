@@ -50,7 +50,7 @@ const spin = spinValue.interpolate({
         style={[styles.logoImage, {transform: [{rotateY: spin}]}]}
         source={require("../assets/comsatslogo.png")}
       />
-                <Text style={styles.logoText}> CU CONNECT</Text>
+                <Text style={styles.logoText}> AI CONNECT</Text>
             <View style={styles.signupContent}>
                 <KeyboardAvoidingView
                  behavior={Platform.OS === "ios" ? "padding" : "height"}
