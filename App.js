@@ -45,6 +45,7 @@ import FollowedAccounts from "./screens/FollowedAccounts";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
+import * as Notifications from 'expo-notifications';
 
 export default function App() {
   //Network Connection Status
@@ -62,6 +63,7 @@ export default function App() {
   useEffect(() => {
     if (!isConnected) {
       showNotConnectedToast();
+    console.log(Notifications.getDevicePushTokenAsync().data)
     } else {
       showReconnectedToast();
     }

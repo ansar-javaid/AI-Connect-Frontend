@@ -4,15 +4,21 @@
     "name": "AI Connect",
     "orientation": "portrait",
     "icon": "./assets/app.png",
+    "splash": {
+      "image": "./assets/Startup.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/app.png"
+        "foregroundImage": "./assets/app.png",
+        "backgroundColor": "#FFFFFF"
       },
       "package": "com.ansar.ai.connect"
     },
     "extra": {
       "eas": {
-        "projectId": "1efd94ad-6ca7-46ba-857b-252b451396d1"
+        "projectId": "0a09c96f-183f-4ed4-a51e-2c3f70c3ba16"
       }
     }
   }
