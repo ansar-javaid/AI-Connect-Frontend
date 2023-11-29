@@ -80,8 +80,8 @@ function CrView({ navigation }) {
   return (
     <View style={styles.signupContent}>
       <ScrollView style={{ backgroundColor: '#f1f2f3' }}>
-        <Image source={require('../assets/bg1.png')} style={styles.bg1Image} />
-        <Image source={require('../assets/bg2.png')} style={styles.bg2Image} />
+        <Image source={require('../../assets/bg1.png')} style={styles.bg1Image} />
+        <Image source={require('../../assets/bg2.png')} style={styles.bg2Image} />
         <Text style={styles.mainHeading}>Create CR Profile</Text>
         <TextInput style={styles.input} placeholder='CR Name' placeholderTextColor={'#333'} />
         <TextInput style={styles.input} placeholder='Email (@CUIATD.EDU.PK)' placeholderTextColor={'#333'} />

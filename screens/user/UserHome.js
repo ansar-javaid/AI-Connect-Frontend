@@ -10,13 +10,13 @@ import {
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
-import { BASE_URL } from "../api/config";
+import { BASE_URL } from "../../api/config";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { login, logout } from "../Store/authSlice";
-import UserPost from "../components/UserPost";
+import { login, logout } from "../../Store/authSlice";
+import UserPost from "../../components/UserPost";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";

@@ -12,7 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Picker } from "@react-native-picker/picker";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
-import { BASE_URL } from "../api/config";
+import { BASE_URL } from "../../api/config";
 import {
   ALERT_TYPE,
   Dialog,
@@ -98,11 +98,11 @@ export default function CreateDepartment({ navigation }) {
           }}
         >
           <Image
-            source={require("../assets/bg1.png")}
+            source={require("../../assets/bg1.png")}
             style={styles.bg1Image}
           />
           <Image
-            source={require("../assets/bg2.png")}
+            source={require("../../assets/bg2.png")}
             style={styles.bg2Image}
           />
           <Text style={styles.mainHeading}>Create Department</Text>

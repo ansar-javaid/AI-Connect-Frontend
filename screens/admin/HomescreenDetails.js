@@ -14,9 +14,9 @@ import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/Key
 // Importing the moment library to format dates and times
 import moment from "moment/moment";
 
-import share from "../assets/share.png";
-import like from "../assets/like.png";
-import view from "../assets/view.png";
+import share from "../../assets/share.png";
+import like from "../../assets/like.png";
+import view from "../../assets/view.png";
 
 export default function HomescreenDetails({ navigation, route }) {
   const [postDetail, setPostDetail] = useState(route?.params?.params);

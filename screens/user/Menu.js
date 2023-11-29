@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import colors from "../assets/colors/colors";
+import colors from "../../assets/colors/colors";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
@@ -21,8 +21,8 @@ const MenuScreen = ({ navigation }) => {
     <View style={styles.container}>
       {/* Background Blobs Box */}
       <View>
-        <Image source={require("../assets/bg1.png")} style={styles.bg1Image} />
-        <Image source={require("../assets/bg2.png")} style={styles.bg2Image} />
+        <Image source={require("../../assets/bg1.png")} style={styles.bg1Image} />
+        <Image source={require("../../assets/bg2.png")} style={styles.bg2Image} />
         {/* Top BOX */}
       </View>
 
@@ -60,14 +60,14 @@ const MenuScreen = ({ navigation }) => {
         >
           <Text style={styles.boxtextwrapper}>Followed Accounts</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.BoxWrapper}>
           <Text style={styles.boxtextwrapper}>Semester Schedule</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
@@ -79,7 +79,7 @@ const MenuScreen = ({ navigation }) => {
         }}
       >
         <Text style={styles.boxtextwrapper}>Change Password</Text>
-        <Image source={require("../assets/right.png")} style={styles.iicon2} />
+        <Image source={require("../../assets/right.png")} style={styles.iicon2} />
       </TouchableOpacity>
       {/* Second Section */}
 
@@ -101,7 +101,7 @@ const MenuScreen = ({ navigation }) => {
         >
           <Text style={styles.boxtextwrapper}>About</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
@@ -113,7 +113,7 @@ const MenuScreen = ({ navigation }) => {
         >
           <Text style={styles.boxtextwrapper}>Contact Us</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
@@ -125,7 +125,7 @@ const MenuScreen = ({ navigation }) => {
         }}
       >
         <Text style={styles.boxtextwrapper}>Privacy Policy</Text>
-        <Image source={require("../assets/right.png")} style={styles.iicon2} />
+        <Image source={require("../../assets/right.png")} style={styles.iicon2} />
       </TouchableOpacity>
 
       {/* lower Border  */}

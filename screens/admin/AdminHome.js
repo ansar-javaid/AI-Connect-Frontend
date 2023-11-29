@@ -11,17 +11,17 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import Post from "../components/Post";
+import Post from "../../components/Post";
 import { FontAwesome } from "@expo/vector-icons";
 import { StackActions, useFocusEffect } from "@react-navigation/native";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
-import { BASE_URL } from "../api/config";
+import { BASE_URL } from "../../api/config";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { login, logout } from "../Store/authSlice";
-import CreatePost from "../components/CreatePost";
+import { login, logout } from "../../Store/authSlice";
+import CreatePost from "../../components/CreatePost";
 import { AntDesign } from '@expo/vector-icons';
 import { StatusBar } from "expo-status-bar";
 

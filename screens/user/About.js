@@ -8,21 +8,21 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from "expo-linear-gradient";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
-import { ScrollView } from "react-native-gesture-handler";
+import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-export default function PrivacyPolicy({ navigation }) {
+import { StackActions } from '@react-navigation/native';
+export default function About({ navigation }) {
 
     return (
-        <ScrollView
-        
-        style={styles.container}>
+        <View
+
+            style={styles.container}>
             <StatusBar style="auto" />
-            <Image source={require('../assets/bg1.png')} style={styles.bg1Image} />
-            <Image source={require('../assets/bg2.png')} style={styles.bg2Image} />
+            <Image source={require('../../assets/bg1.png')} style={styles.bg1Image} />
+            <Image source={require('../../assets/bg2.png')} style={styles.bg2Image} />
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 enabled={false}
@@ -36,28 +36,26 @@ export default function PrivacyPolicy({ navigation }) {
             >
                 <Text style={[styles.welcomeText, styles.extraBold]}>AI CONNECT</Text>
             </LinearGradient>
-            <Text style={[styles.content]}>At Cu-Connect, we value your privacy and are committed to protecting your personal information. {"\n"}This privacy policy outlines the type of information we collect, how we use it, and the measures we take to ensure its security.{"\n"}{"\n"}
-                1. Information we collect:{"\n"}{"\n"}
-                a. Personal information such as your name, email address, and university information.{"\n"}
-                b. Usage information such as log data, device information, and location information.{"\n"}
-                c. Other information that you voluntarily provide to us.{"\n"}{"\n"}
-                2. How we use your information:{"\n"}{"\n"}
-                a. To provide and improve our app services to you.{"\n"}
-                b. To personalize your experience and provide relevant content and recommendations.{"\n"}
-                c. To communicate with you regarding our app updates, news, and promotional offers.{"\n"}
-                d. To comply with legal and regulatory obligations.{"\n"}{"\n"}
-                3. Information sharing:{"\n"}{"\n"}
-                a. We do not sell or share your personal information with third parties for their own marketing purposes.{"\n"}
-                b. We may share your information with our trusted third-party service providers who help us operate our app and provide services to you.{"\n"}
-                c. We may share your information in response to a legal request, to protect our rights and property, or to protect the safety of our users.{"\n"}{"\n"}
-                4. Data retention:{"\n"}{"\n"}
-                a. We will retain your personal information for as long as necessary to provide our app services to you and as required by law.{"\n"}{"\n"}
-                5. Security:{"\n"}{"\n"}
-                a. We take appropriate technical and organizational measures to protect your personal information from unauthorized access, disclosure, or destruction.{"\n"}
-
-                {"\n"}By using our app, you agree to the terms of this privacy policy. We may update this policy from time to time, and we will notify you of any significant changes. If you have any questions or concerns about our privacy practices, please contact us at support@cu-connect.com.</Text>
-
-                <View style={styles.lowborder}>
+            <Text style={[styles.content]}>Welcome to Cu-Connect, the social media app designed exclusively for university students! Our team is excited to offer a platform where students can connect with each other. {"\n"}
+                We understand that university can be a challenging and sometimes overwhelming experience, which is why we created Cu-Connect as a way to support and empower students.{"\n"}
+                Our team is made up of passionate and dedicated individuals who are committed to helping students thrive. We are constantly working to improve our app and to ensure that it meets the evolving needs of our users.
+                {"\n"}Thank you for choosing Cu-Connect as your go-to social media app for university. We are proud to be part of your journey, and we look forward to helping you make the most of your university experience!</Text>
+            <Text style={[styles.bold]}>Developed By</Text>
+            <View style={[styles.group]}>
+                <View style={styles.imageContainer}>
+                    <Text style={{ fontFamily: 'kumbh-ExtraBold', marginBottom: 5 }}>Ansar</Text>
+                    <Image source={require('../../assets/ansar.jpeg')} style={styles.image} />
+                </View>
+                <View style={styles.imageContainer}>
+                    <Text style={{ fontFamily: 'kumbh-ExtraBold', marginBottom: 5 }}>Rabbaniyeh</Text>
+                    <Image source={require('../../assets/Rabi.jpg')} style={styles.image} />
+                </View>
+                <View style={styles.imageContainer}>
+                    <Text style={{ fontFamily: 'kumbh-ExtraBold', marginBottom: 5 }}>Hadi</Text>
+                    <Image source={require('../../assets/Hadi.jpg')} style={styles.image} />
+                </View>
+            </View>
+            <View style={styles.lowborder}>
                 <View style={styles.menuContainer}>
                   
                     <TouchableOpacity
@@ -95,13 +93,12 @@ export default function PrivacyPolicy({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
-        </ScrollView>
+        </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1
-
     },
 
     searchContainer: {
@@ -121,23 +118,10 @@ const styles = StyleSheet.create({
         margin: 10,
         fontFamily: 'kumbh-Regular',
         fontSize: 15,
-        paddingBottom: 80
     },
-    // menuContainer: {
-    //     flexDirection: 'row',
-    //     justifyContent: 'space-between'
-
-    // },
-    bg1Image: {
-        position: 'absolute',
-        right: 0,
-        top: 168
-    },
-    bg2Image: {
-        position: 'absolute',
-        left: 0,
-        top: 587.35,
-
+    bold: {
+        fontFamily: 'kumbh-Bold',
+        textAlign: 'center',
     },
     menuContainer: {
         width: "100%",
@@ -145,6 +129,30 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
 
+    },
+    bg1Image: {
+        position: 'absolute',
+        right: 0,
+        top: 138
+    },
+    bg2Image: {
+        position: 'absolute',
+        left: 0,
+        top: 500,
+
+    },
+    group: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 50,
+        marginTop: 20
+    },
+    image: {
+        width: 60,
+        height: 60
+    },
+    imageContainer: {
+        alignItems: 'center'
     },
     lowborder: {
         flexDirection: "row",

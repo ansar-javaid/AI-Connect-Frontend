@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import React from "react";
-import colors from "../assets/colors/colors";
+import colors from "../../assets/colors/colors";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 import { AntDesign } from "@expo/vector-icons";
@@ -9,8 +9,8 @@ const SuperAdminHome = ({ navigation }) => {
     <View style={styles.container}>
       {/* Background Blobs Box */}
       <View>
-        <Image source={require("../assets/bg1.png")} style={styles.bg1Image} />
-        <Image source={require("../assets/bg2.png")} style={styles.bg2Image} />
+        <Image source={require("../../assets/bg1.png")} style={styles.bg1Image} />
+        <Image source={require("../../assets/bg2.png")} style={styles.bg2Image} />
         {/* Top BOX */}
       </View>
 
@@ -31,12 +31,12 @@ const SuperAdminHome = ({ navigation }) => {
           }}
         >
           <Image
-            source={require("../assets/building-07.png")}
+            source={require("../../assets/building-07.png")}
             style={styles.iicon}
           />
           <Text style={styles.boxtextwrapper}>Create Department</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
@@ -47,12 +47,12 @@ const SuperAdminHome = ({ navigation }) => {
           }}
         >
           <Image
-            source={require("../assets/building-06.png")}
+            source={require("../../assets/building-06.png")}
             style={styles.iicon}
           />
           <Text style={styles.boxtextwrapper}>Create Profile</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
@@ -64,57 +64,57 @@ const SuperAdminHome = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../assets/user-plus-01.png")}
+          source={require("../../assets/user-plus-01.png")}
           style={styles.iicon}
         />
         <Text style={styles.boxtextwrapper}>Class Cr. Profile</Text>
-        <Image source={require("../assets/right.png")} style={styles.iicon2} />
+        <Image source={require("../../assets/right.png")} style={styles.iicon2} />
       </TouchableOpacity>
       {/* Second Section */}
       <View style={{ padding: 10 }}></View>
       <View style={{ flexDirection: "row", alignSelf: "flex-start" }}>
         <TouchableOpacity style={styles.BoxWrapper}>
           <Image
-            source={require("../assets/building-07.png")}
+            source={require("../../assets/building-07.png")}
             style={styles.iicon}
           />
           <Text style={styles.boxtextwrapper}>Posts</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.BoxWrapper}>
           <Image
-            source={require("../assets/building-06.png")}
+            source={require("../../assets/building-06.png")}
             style={styles.iicon}
           />
           <Text style={styles.boxtextwrapper}>Hide/Lock Post</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>
       </View>
       <TouchableOpacity style={styles.BoxWrapper}>
         <Image
-          source={require("../assets/user-plus-01.png")}
+          source={require("../../assets/user-plus-01.png")}
           style={styles.iicon}
         />
         <Text style={styles.boxtextwrapper}>Post Priority</Text>
-        <Image source={require("../assets/right.png")} style={styles.iicon2} />
+        <Image source={require("../../assets/right.png")} style={styles.iicon2} />
       </TouchableOpacity>
       {/* Second Section */}
       <View style={{ padding: 10 }}></View>
       <View style={{ flexDirection: "row", alignSelf: "flex-start" }}>
         <TouchableOpacity style={styles.BoxWrapper}>
           <Image
-            source={require("../assets/book-closed.png")}
+            source={require("../../assets/book-closed.png")}
             style={styles.iicon}
           />
           <Text style={styles.boxtextwrapper}>Semester Schedule</Text>
           <Image
-            source={require("../assets/right.png")}
+            source={require("../../assets/right.png")}
             style={styles.iicon2}
           />
         </TouchableOpacity>

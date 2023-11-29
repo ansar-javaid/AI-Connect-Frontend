@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://gdsccui-001-site1.ftempurl.com/api';
+export const BASE_URL = 'https://aiconnect-001-site1.ctempurl.com/api';

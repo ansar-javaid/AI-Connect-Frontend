@@ -17,16 +17,16 @@ import {
 import React, { useState, useEffect } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "@react-native-material/core";
-import NewPost from "../components/NewPost";
+import NewPost from "../../components/NewPost";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { login, logout } from "../Store/authSlice";
+import { login, logout } from "../../Store/authSlice";
 import { useFocusEffect } from "@react-navigation/native";
-import { BASE_URL } from "../api/config";
+import { BASE_URL } from "../../api/config";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RefreshControl } from "react-native";
-import UserPost from "../components/UserPost";
+import UserPost from "../../components/UserPost";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -163,7 +163,7 @@ export default function ProfileScreen1({ route, navigation }) {
             followAnimation();
             const soundObject = new Audio.Sound();
             await soundObject.loadAsync(
-              require("../assets/sounds/Followed.mp3")
+              require("../../assets/sounds/Followed.mp3")
             );
             await soundObject.playAsync();
           } catch (error) {
@@ -179,7 +179,7 @@ export default function ProfileScreen1({ route, navigation }) {
           try {
             const soundObject = new Audio.Sound();
             await soundObject.loadAsync(
-              require("../assets/sounds/Unfollowed.mp3")
+              require("../../assets/sounds/Unfollowed.mp3")
             );
             await soundObject.playAsync();
           } catch (error) {
@@ -242,7 +242,7 @@ export default function ProfileScreen1({ route, navigation }) {
           >
             <View style={styles.animationContainer}>
               <LottieView
-                source={require("../assets/bell.json")}
+                source={require("../../assets/bell.json")}
                 autoPlay
                 loop={false}
                 style={styles.animation}
@@ -263,14 +263,14 @@ export default function ProfileScreen1({ route, navigation }) {
 
             <TouchableOpacity>
               <Image
-                source={require("../assets/search.png")}
+                source={require("../../assets/search.png")}
                 style={styles.search}
               />
             </TouchableOpacity>
           </View>
           <View style={{ flex: 1 }}>
             <Image
-              source={require("../assets/bgcard.png")}
+              source={require("../../assets/bgcard.png")}
               style={styles.pic}
             />
             <View style={{ flexDirection: "row" }}>

@@ -98,20 +98,20 @@ export default function Login({ navigation }) {
           AsyncStorage.setItem(
             "profileId",
             jwtDecode(response.data.value.token)[
-              "http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata"
+              "Profile"
             ]
           ); // Save the user's profile ID to AsyncStorage after decoding it from the JWT token
           AsyncStorage.setItem(
             "userEmail",
             jwtDecode(response.data.value.token)[
-              "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
+              "Email"
             ]
           ); // Save the user's User Email to AsyncStorage after decoding it from the JWT token
 
           AsyncStorage.setItem(
             "userName",
             jwtDecode(response.data.value.token)[
-              "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
+              "Name"
             ]
           );
           ScreenNavigator();

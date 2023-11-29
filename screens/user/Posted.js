@@ -8,15 +8,15 @@ export default function Posted({ navigation }) {
 
       <StatusBar style="auto" />
       <View>
-        <Image source={require("../assets/bg1.png")} style={styles.bg1Image} />
-        <Image source={require("../assets/bg2.png")} style={styles.bg2Image} />
+        <Image source={require("../../assets/bg1.png")} style={styles.bg1Image} />
+        <Image source={require("../../assets/bg2.png")} style={styles.bg2Image} />
       </View>
 
       <View style={styles.lowborder}>
         <View>
           <TouchableOpacity>
             <Image
-              source={require("../assets/lgout.png")}
+              source={require("../../assets/lgout.png")}
               style={styles.lgout}
             />
             <Text style={{ top: 30, left: 15 }}>Logout</Text>
@@ -26,7 +26,7 @@ export default function Posted({ navigation }) {
         <View>
           <TouchableOpacity>
             <Image
-              source={require("../assets/notification.png")}
+              source={require("../../assets/notification.png")}
               style={styles.ntfcnbtn}
             />
           </TouchableOpacity>
@@ -34,18 +34,18 @@ export default function Posted({ navigation }) {
 
         <View>
           <TouchableOpacity>
-            <Image source={require("../assets/left.png")} style={styles.back} />
+            <Image source={require("../../assets/left.png")} style={styles.back} />
             <Text style={{ top: 30, right: 20 }}>Back</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.square}></View>
       <Image
-        source={require("../assets/tick.png")}
+        source={require("../../assets/tick.png")}
         style={{ position: "absolute", alignSelf: "center", top: 450 }}
       />
       <Image
-        source={require("../assets/circle.png")}
+        source={require("../../assets/circle.png")}
         style={{ position: "absolute", alignSelf: "center", top: 425 }}
       />
       <Text style={styles.success}>Posted Succesfully</Text>

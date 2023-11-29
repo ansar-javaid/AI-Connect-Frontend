@@ -44,8 +44,8 @@ const NotificationScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View>
         {/* Background Blobs Box */}
-        <Image source={require("../assets/bg1.png")} style={styles.bg1Image} />
-        <Image source={require("../assets/bg2.png")} style={styles.bg2Image} />
+        <Image source={require("../../assets/bg1.png")} style={styles.bg1Image} />
+        <Image source={require("../../assets/bg2.png")} style={styles.bg2Image} />
         {/* Top BOX */}
       </View>
       <LinearGradient
@@ -81,26 +81,26 @@ const NotificationScreen = ({ navigation }) => {
             >
               15 min ago
             </Text>
-            <Image source={require("../assets/depIcon.png")} style={styles.depicon} />
+            <Image source={require("../../assets/depIcon.png")} style={styles.depicon} />
           </View>
         </TouchableOpacity>
       ))}
 
       <View style={styles.lowborder}>
         <TouchableOpacity>
-          <Image source={require("../assets/lgout.png")} style={styles.lgout} />
+          <Image source={require("../../assets/lgout.png")} style={styles.lgout} />
           <Text style={{ top: 30, left: 15 }}>Logout</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
           <Image
-            source={require("../assets/notification.png")}
+            source={require("../../assets/notification.png")}
             style={styles.ntfcnbtn}
           />
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image source={require("../assets/left.png")} style={styles.back} />
+          <Image source={require("../../assets/left.png")} style={styles.back} />
           <Text style={{ top: 30, right: 20 }}>Back</Text>
         </TouchableOpacity>
       </View>

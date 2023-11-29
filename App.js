@@ -1,51 +1,42 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  Alert,
-  AppState,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  ToastAndroid,
-} from "react-native";
+import { SafeAreaView, StyleSheet, ToastAndroid } from "react-native";
 import Signup from "./screens/Signup";
 import Login from "./screens/Login";
-import AdminHome from "./screens/AdminHome";
+import AdminHome from "./screens/admin/AdminHome";
 import StartUpAnimation from "./screens/StartUpAnimation";
-import Cr from "./screens/Cr";
-import CreateProfile from "./screens/CreateProfile";
-import CreateDepartment from "./screens/CreateDepartment";
-import HomescreenDetails from "./screens/HomescreenDetails";
+import Cr from "./screens/supperAdmin/Cr";
+import CreateProfile from "./screens/supperAdmin/CreateProfile";
+import CreateDepartment from "./screens/supperAdmin/CreateDepartment";
+import HomescreenDetails from "./screens/admin/HomescreenDetails";
 import Resetemail from "./screens/Resetemail";
 import Resetpassword from "./screens/Resetpassword";
-import Search from "./screens/Search";
+import Search from "./screens/user/Search.js";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { Provider } from "react-redux";
 import store from "./Store/store";
-import UserHome from "./screens/UserHome";
+import UserHome from "./screens/user/UserHome.js";
 import TypeScreen from "./screens/Type";
-import SuperAdminHome from "./screens/SuperAdminHome.js";
-import ProfileScreen from "./screens/ProfileScreen.js";
-import Posted from "./screens/Posted.js";
-import NotificationScreen from "./screens/NotificationsScreen.js";
-import MenuScreen from "./screens/Menu.js";
+import SuperAdminHome from "./screens/supperAdmin/SuperAdminHome";
+import ProfileScreen from "./screens/user/ProfileScreen.js";
+import Posted from "./screens/user/Posted.js";
+import NotificationScreen from "./screens/user/NotificationsScreen.js";
+import MenuScreen from "./screens/user/Menu.js";
 import CreatedScreen from "./screens/CreatedScreen.js";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useFonts } from "expo-font";
 import KumbhSansRegular from "./assets/fonts/KumbhSans-Regular.ttf";
 import KumbhSansBold from "./assets/fonts/KumbhSans-Bold.ttf";
 import KumbhSansLight from "./assets/fonts/KumbhSans-Light.ttf";
 import KumbhSansExtraBold from "./assets/fonts/KumbhSans-ExtraBold.ttf";
 import { Audio } from "expo-av";
-import About from "./screens/About";
-import ContactUs from "./screens/ContactUs";
-import PrivacyPolicy from "./screens/PrivacyPolicy";
-import FollowedAccounts from "./screens/FollowedAccounts";
+import About from "./screens/user/About";
+import ContactUs from "./screens/user/ContactUs";
+import PrivacyPolicy from "./screens/user/PrivacyPolicy";
+import FollowedAccounts from "./screens/user/FollowedAccounts.js";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
-import * as Notifications from 'expo-notifications';
+import * as Notifications from "expo-notifications";
 
 export default function App() {
   //Network Connection Status
@@ -63,7 +54,7 @@ export default function App() {
   useEffect(() => {
     if (!isConnected) {
       showNotConnectedToast();
-    console.log(Notifications.getDevicePushTokenAsync().data)
+      console.log(Notifications.getDevicePushTokenAsync().data);
     } else {
       showReconnectedToast();
     }
@@ -106,8 +97,6 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   console.disableYellowBox = true;
-
-
 
   return (
     <Provider store={store}>

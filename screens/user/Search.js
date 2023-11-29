@@ -11,7 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BASE_URL } from "../api/config";
+import { BASE_URL } from "../../api/config";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -20,7 +20,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
-const FollowedAccounts = () => {
+const Search = () => {
   const [searchText, setSearchText] = useState("");
   const [profiles, setProfiles] = useState([]);
 
@@ -32,7 +32,7 @@ const FollowedAccounts = () => {
     try {
       const token = await AsyncStorage.getItem('token');
       const response = await axios.get(`${BASE_URL}/profile/GetAllProfiles`, {
-        headers: { accept: "*/*", Authorization: `Bearer ${token}` },
+        headers: { accept: "*/*", Authorization: `Bearer ${token}`, },
       });
       if (response.status === 200) {
         console.log(response.data);
@@ -85,6 +85,28 @@ const FollowedAccounts = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
+      <View style={styles.searchContainer}>
+        <Ionicons
+          name="ios-search"
+          size={20}
+          color="#888"
+          style={styles.searchIcon}
+        />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search"
+          placeholderTextColor="#888"
+          value={searchText}
+          onChangeText={setSearchText}
+        />
+        <Ionicons
+          name="ios-close"
+          size={20}
+          color="#888"
+          style={styles.clearIcon}
+          onPress={() => setSearchText("")}
+        />
+      </View>
       <ScrollView contentContainerStyle={styles.listContainer}>
         {filterData().map((item) => renderItem({ item }))}
       </ScrollView>
@@ -176,4 +198,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FollowedAccounts;
+export default Search;

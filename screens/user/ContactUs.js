@@ -18,8 +18,8 @@ export default function ContactUs({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Image source={require("../assets/bg1.png")} style={styles.bg1Image} />
-      <Image source={require("../assets/bg2.png")} style={styles.bg2Image} />
+      <Image source={require("../../assets/bg1.png")} style={styles.bg1Image} />
+      <Image source={require("../../assets/bg2.png")} style={styles.bg2Image} />
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         enabled={false}

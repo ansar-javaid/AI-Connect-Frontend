@@ -13,11 +13,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { Picker } from "@react-native-picker/picker";
-import { BASE_URL } from "../api/config";
+import { BASE_URL } from "../../api/config";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
-import { login, logout } from "../Store/authSlice";
+import { login, logout } from "../../Store/authSlice";
 import { useFocusEffect } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import {
@@ -222,11 +222,11 @@ export default function CreateProfile({ navigation }) {
           }}
         >
           <Image
-            source={require("../assets/bg1.png")}
+            source={require("../../assets/bg1.png")}
             style={styles.bg1Image}
           />
           <Image
-            source={require("../assets/bg2.png")}
+            source={require("../../assets/bg2.png")}
             style={styles.bg2Image}
           />
           <Text style={styles.mainHeading}>Create Profile</Text>
