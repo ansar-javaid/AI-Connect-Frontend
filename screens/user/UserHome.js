@@ -34,14 +34,15 @@ export default function UserHome({ navigation }) {
 
   // Get the title from the global state using the useSelector hook
   const title = useSelector((state) => state.auth.profileTitle);
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
 
   // useEffect hook to fetch data when the component mounts
   useEffect(() => {
-    getAllPosts();
+    getAllPosts(1);
   }, []);
 
   // Function to fetch all the posts by the profile from the API
-  const getAllPosts = async () => {
+  const getAllPosts = async (page) => {
     // Dispatch the logout action to clear the global state
     dispatch(logout());
     const email = await AsyncStorage.getItem("userEmail");
@@ -49,7 +50,7 @@ export default function UserHome({ navigation }) {
     try {
       const token = await AsyncStorage.getItem("token");
       const response = await axios.get(
-        `${BASE_URL}/subscription/SubscribedProfilePosts?Email=${email}`,
+        `${BASE_URL}/subscription/SubscribedPosts?Email=${email}&page=${page}`,
         {
           headers: {
             accept: '*/*',
@@ -62,7 +63,12 @@ export default function UserHome({ navigation }) {
         dispatch(login(response.data));
         // Store the fetched posts in the state variable
         console.log(response.data);
-        setPosts(response.data);
+        if (page === 1) {
+          setPosts(response.data);
+        } else {
+          setPosts((prevPosts) => [...prevPosts, ...response.data]);
+        }
+        setCurrentPage(page);
       }
     } catch (error) {
       console.warn("Here "+error);
@@ -77,11 +83,16 @@ export default function UserHome({ navigation }) {
     });
   }
 
-  // Function to refresh the screen
+  const loadMore = () => {
+    const nextPage = currentPage + 1;
+    getAllPosts(nextPage);
+  };
+
   const onRefresh = React.useCallback(() => {
     setPosts([]);
+    setCurrentPage(1);
     setRefreshing(true);
-    getAllPosts().then(() => setRefreshing(false));
+    getAllPosts(1).then(() => setRefreshing(false));
   }, []);
 
   return (
@@ -114,6 +125,8 @@ export default function UserHome({ navigation }) {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          onEndReached={loadMore} // Triggered when reaching the end of the list
+          onEndReachedThreshold={0.1} // Trigger loadMore when 10% from the bottom
         >
           {posts.map((post) => {
             return (
@@ -136,6 +149,12 @@ export default function UserHome({ navigation }) {
               </View>
             );
           })}
+          {/* Load More button */}
+          {posts.length > 0 && (
+            <TouchableOpacity style={styles.loadMoreButton} onPress={loadMore}>
+              <Text style={[styles.loadMoreButtonText,styles.extraBold]}>Load More</Text>
+            </TouchableOpacity>
+          )}
         </ScrollView>
         <View style={styles.lowborder}>
           <View style={styles.menuContainer}>
@@ -307,4 +326,17 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  loadMoreButton: {
+    backgroundColor: "#ddd",
+    padding: 10,
+    paddingVertical: 20,
+    alignItems: "center",
+    borderTopRightRadius: 28,
+    borderTopLeftRadius: 28,
+  },
+  loadMoreButtonText: {
+    fontFamily: "kumbh-Bold",
+    fontSize: 16,
+    color: "#333",
+  }
 });

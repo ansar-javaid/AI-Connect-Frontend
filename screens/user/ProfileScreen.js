@@ -75,16 +75,18 @@ export default function ProfileScreen1({ route, navigation }) {
   // Get the Image URL from the global state using the useSelector hook
   const image = useSelector((state) => state.auth.profileImage);
 
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
+
   // Function to fetch data from local storage and APIs
   const getLocalData = async () => {
     // Dispatch the logout action to clear the global state
     dispatch(logout());
     try {
       // Fetch the profile data using the profile ID from the API
-      const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem("token");
       const response = await axios.get(
         `${BASE_URL}/profile/GetProfileOnly?id=${profileId}`,
-        { headers: { accept: "*/*", Authorization: `Bearer ${token}`, } }
+        { headers: { accept: "*/*", Authorization: `Bearer ${token}` } }
       );
       if (response.status === 200) {
         // Dispatch the login action to update the global state with the fetched profile data
@@ -99,17 +101,24 @@ export default function ProfileScreen1({ route, navigation }) {
   };
 
   // Function to fetch all the posts by the profile from the API
-  const getAllPosts = async (id) => {
+  const getAllPosts = async (id, page) => {
     try {
-      const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem("token");
+      const email = await AsyncStorage.getItem("userEmail");
+
       const response = await axios.get(
-        `${BASE_URL}/posts/GetPostsByProfile?id=${id}`,
-        { headers: { accept: "*/*", Authorization: `Bearer ${token}`, } }
+        `${BASE_URL}/subscription/SubscribedProfilePosts?profileId=${id}&Email=${email}&page=${page}`,
+        { headers: { accept: "*/*", Authorization: `Bearer ${token}` } }
       );
       if (response.status === 200) {
         // Store the fetched posts in the state variable
         console.log(response.data);
-        setPosts(response.data);
+        if (page === 1) {
+          setPosts(response.data);
+        } else {
+          setPosts((prevPosts) => [...prevPosts, ...response.data]);
+        }
+        setCurrentPage(page);
       }
     } catch (error) {}
   };
@@ -117,10 +126,10 @@ export default function ProfileScreen1({ route, navigation }) {
   // Function to fetch the Following status of a profile from the API
   const getFollowStatus = async (id, email) => {
     try {
-      const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem("token");
       const response = await axios.get(
         `${BASE_URL}/subscription/ProfileStatus?Email=${email}&ProfileId=${id}`,
-        { headers: { accept: "*/*", Authorization: `Bearer ${token}`, } }
+        { headers: { accept: "*/*", Authorization: `Bearer ${token}` } }
       );
       if (response.status === 200) {
         if (response.data.value.status === true) {
@@ -133,16 +142,16 @@ export default function ProfileScreen1({ route, navigation }) {
     } catch (error) {}
   };
 
-  const followAnimation=()=>{
+  const followAnimation = () => {
     setAnimationVisible(true);
-        setTimeout(() => {
-          setAnimationVisible(false);
-        }, 3000);
-  }
+    setTimeout(() => {
+      setAnimationVisible(false);
+    }, 3000);
+  };
   // Function to Follow/Un-follow  of a profile from the API
   const setFollowStatus = async () => {
     try {
-      const token = await AsyncStorage.getItem('token');
+      const token = await AsyncStorage.getItem("token");
       const response = await fetch(`${BASE_URL}/subscription/FollowProfile`, {
         method: "POST",
         headers: {
@@ -192,11 +201,16 @@ export default function ProfileScreen1({ route, navigation }) {
     } catch (error) {}
   };
 
-  // Function to refresh the screen
+  const loadMore = () => {
+    const nextPage = currentPage + 1;
+    getAllPosts(profileId,nextPage);
+  };
+
   const onRefresh = React.useCallback(() => {
     setPosts([]);
+    setCurrentPage(1);
     setRefreshing(true);
-    getLocalData().then(() => setRefreshing(false));
+    getAllPosts(profileId,1).then(() => setRefreshing(false));
   }, []);
   // Function to navigate to the details screen when a post is clicked
   function gotoDetailsComp(post) {
@@ -207,7 +221,7 @@ export default function ProfileScreen1({ route, navigation }) {
   }
 
   useEffect(() => {
-    getAllPosts();
+    getAllPosts(profileId,1);
   }, []);
 
   function gotoDetailsComp(post) {
@@ -343,6 +357,8 @@ export default function ProfileScreen1({ route, navigation }) {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
+            onEndReached={loadMore} // Triggered when reaching the end of the list
+            onEndReachedThreshold={0.1} // Trigger loadMore when 10% from the bottom
           >
             {posts.map((post) => {
               return (
@@ -357,11 +373,20 @@ export default function ProfileScreen1({ route, navigation }) {
                     file={post.filePath}
                     gotoDetails={gotoDetailsComp}
                     profileId={post.profileID}
-                    profileImage={image}
+                    profileImage={post.coverPicture.profileImage}
+                    reaction={post.reaction}
+                    postID={post.postID}
+                    totalReactions={post.totalReactions}
                   />
                 </View>
               );
             })}
+            {/* Load More button */}
+          {posts.length > 0 && (
+            <TouchableOpacity style={styles.loadMoreButton} onPress={loadMore}>
+              <Text style={styles.loadMoreButtonText}>Load More</Text>
+            </TouchableOpacity>
+          )}
           </ScrollView>
           <View style={styles.lowborder}>
             <View style={styles.menuContainer}>
@@ -543,5 +568,18 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
     padding: 10,
+  },
+  loadMoreButton: {
+    backgroundColor: "#ddd",
+    padding: 10,
+    paddingVertical: 20,
+    alignItems: "center",
+    borderTopRightRadius: 28,
+    borderTopLeftRadius: 28,
+  },
+  loadMoreButtonText: {
+    fontFamily: "kumbh-Bold",
+    fontSize: 16,
+    color: "#333",
   },
 });
