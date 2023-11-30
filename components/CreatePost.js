@@ -55,7 +55,7 @@ export default function CreatePost(props) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0.2,
       allowsMultipleSelection: true,
     });
 
@@ -75,7 +75,7 @@ export default function CreatePost(props) {
 
     selectedImages.forEach((image, index) => {
       const imageName = `image-${index + 1}.${image.uri.split(".").pop()}`;
-      console.warn(image.uri);
+      console.log("Size");
       formData.append("Files", {
         name: imageName,
         type: "image/jpeg", //TODO Handle file type
