@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\components",
+    "\\screens",
+    "\\screens\\user"
   ],
-  "SelectedNode": "\\C:\\Users\\ajavaidvm\\Source\\Repos\\AI-Connect-Frontend",
+  "SelectedNode": "\\screens\\user\\ProfileScreen.js",
   "PreviewInSolutionExplorer": false
 }
