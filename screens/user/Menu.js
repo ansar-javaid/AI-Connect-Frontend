@@ -55,10 +55,10 @@ const MenuScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.BoxWrapper}
           onPress={() => {
-            navigation.navigate("FollowedAccounts");
+            navigation.navigate("SearchScreen");
           }}
         >
-          <Text style={styles.boxtextwrapper}>Followed Accounts</Text>
+          <Text style={styles.boxtextwrapper}>Search Profiles</Text>
           <Image
             source={require("../../assets/right.png")}
             style={styles.iicon2}

@@ -123,7 +123,7 @@ export default function UserHome({ navigation }) {
                 >
                     {posts.map((post) => {
                         return (
-                            <View style={styles.post}>
+                            <View style={styles.post} key={post.postID}>
                                 <UserPost
                                     departmentName={post.profileTitle}
                                     time={post.postsCreatedOn}

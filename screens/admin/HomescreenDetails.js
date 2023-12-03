@@ -175,9 +175,6 @@ function PostImages({ postDetail }) {
           <Image source={postDetail.file[0]} />
           <View style={styles.statesContainer}>
             <TouchableOpacity>
-              <Text>
-                {postDetail?.views} <Image source={view} />
-              </Text>
             </TouchableOpacity>
             <TouchableOpacity>
               <Text>

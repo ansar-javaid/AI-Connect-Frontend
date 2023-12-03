@@ -13,13 +13,30 @@ import { StatusBar } from "expo-status-bar";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import moment from "moment/moment";
+
 const NotificationScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [notifications, setNotifications] = useState([]);
+  const [savedItems, setSavedItems] = useState([]);
 
   useEffect(() => {
     getName();
     fetchNotifications();
+  }, []);
+
+  useEffect(() => {
+    const loadSavedItems = async () => {
+      try {
+        const savedItems = await AsyncStorage.getItem("savedItems");
+        const parsedSavedItems = JSON.parse(savedItems) || [];
+        setSavedItems(parsedSavedItems);
+      } catch (error) {
+        console.error("Error loading saved items from local storage:", error);
+      }
+    };
+
+    loadSavedItems();
   }, []);
 
   const fetchNotifications = async () => {
@@ -28,7 +45,7 @@ const NotificationScreen = ({ navigation }) => {
       const parsedNotifications = JSON.parse(savedNotifications);
       if (Array.isArray(parsedNotifications)) {
         setNotifications(parsedNotifications);
-        console.log(notifications)
+        console.log(notifications);
       }
     } catch (error) {
       console.error("Error fetching notifications:", error);
@@ -39,13 +56,26 @@ const NotificationScreen = ({ navigation }) => {
     setName(await AsyncStorage.getItem("userName"));
   };
 
+  // Function to navigate to the details screen when a post is clicked
+  function gotoDetailsComp(post) {
+    navigation.navigate("HomescreenDetails", {
+      screen: "HomescreenDetails",
+      params: post,
+    });
+  }
 
   return (
     <View style={styles.container}>
       <View>
         {/* Background Blobs Box */}
-        <Image source={require("../../assets/bg1.png")} style={styles.bg1Image} />
-        <Image source={require("../../assets/bg2.png")} style={styles.bg2Image} />
+        <Image
+          source={require("../../assets/bg1.png")}
+          style={styles.bg1Image}
+        />
+        <Image
+          source={require("../../assets/bg2.png")}
+          style={styles.bg2Image}
+        />
         {/* Top BOX */}
       </View>
       <LinearGradient
@@ -55,20 +85,29 @@ const NotificationScreen = ({ navigation }) => {
       <Text style={styles.CuConect}>AI CONNECT</Text>
       <Text style={styles.welcome}>Welcome {name}</Text>
       {/* Notifications */}
-      <Text style={styles.Notifications}>Notifications</Text>
+      <Text style={styles.Notifications}>Notifications & Saved Items</Text>
       <View style={styles.line}></View>
 
       {/* Notification Box */}
 
-      {notifications.map((notification, index) => (
+      {savedItems.map((savedItem) => (
         <TouchableOpacity
-          key={index}
+          key={savedItem.postID}
           style={styles.Notificationbox}
-          onPress={() => console.log(notification)}
+          onPress={() => gotoDetailsComp(savedItem)}
         >
           <View>
-            <Text style={{ left: 70, top: 10, fontFamily: "kumbh-Regular" }}>
-              {notification}
+            <Text
+              style={{
+                left: 70,
+                top: 10,
+                width: 320,
+                fontFamily: "kumbh-Regular",
+              }}
+            >
+              {savedItem.text?.length > 40
+                ? savedItem.text?.slice(0, 40) + "..."
+                : savedItem.text}
             </Text>
             <Text
               style={{
@@ -79,16 +118,22 @@ const NotificationScreen = ({ navigation }) => {
                 fontFamily: "kumbh-Regular",
               }}
             >
-              15 min ago
+              {moment(savedItem.time).calendar()}
             </Text>
-            <Image source={require("../../assets/depIcon.png")} style={styles.depicon} />
+            <Image
+              source={{ uri: savedItem.profileImage }}
+              style={styles.depicon}
+            />
           </View>
         </TouchableOpacity>
       ))}
 
       <View style={styles.lowborder}>
         <TouchableOpacity>
-          <Image source={require("../../assets/lgout.png")} style={styles.lgout} />
+          <Image
+            source={require("../../assets/lgout.png")}
+            style={styles.lgout}
+          />
           <Text style={{ top: 30, left: 15 }}>Logout</Text>
         </TouchableOpacity>
 
@@ -100,7 +145,10 @@ const NotificationScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Image source={require("../../assets/left.png")} style={styles.back} />
+          <Image
+            source={require("../../assets/left.png")}
+            style={styles.back}
+          />
           <Text style={{ top: 30, right: 20 }}>Back</Text>
         </TouchableOpacity>
       </View>
@@ -197,6 +245,7 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 5,
     top: 10,
+    borderRadius: 25,
   },
 
   bg1Image: {
@@ -209,18 +258,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 700,
   },
-  lowborder: {
-    flexDirection: "row",
-    position: "absolute",
-    bottom: 0,
-    backgroundColor: "#FFFFFF",
-    width: "100%",
-    height: 79,
-    borderTopRightRadius: 28,
-    borderTopLeftRadius: 28,
-    alignContent: "space-between",
-    justifyContent: "space-between",
-  },
+
   lgout: {
     position: "absolute",
     width: 25,
@@ -255,13 +293,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 28,
     justifyContent: "space-between",
     paddingHorizontal: 20,
-  },
-  lgout: {
-    position: "absolute",
-    width: 25,
-    height: 25,
-    top: 10,
-    left: 0,
   },
   menuContainer: {
     width: "100%",
