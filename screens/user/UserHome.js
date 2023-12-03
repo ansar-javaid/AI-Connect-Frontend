@@ -24,16 +24,9 @@ import { StackActions } from "@react-navigation/native";
 
 export default function UserHome({ navigation }) {
     const dispatch = useDispatch();
-
-    // State variables to store data fetched from APIs
-    const [isDataLoaded, setIsDataLoaded] = useState(false);
-    const [profile, setProfile] = useState();
     const [posts, setPosts] = useState([]);
     // Refresh Posts
     const [refreshing, setRefreshing] = useState(false);
-
-    // Get the title from the global state using the useSelector hook
-    const title = useSelector((state) => state.auth.profileTitle);
     const [currentPage, setCurrentPage] = useState(1); // Track the current page
 
     // useEffect hook to fetch data when the component mounts
