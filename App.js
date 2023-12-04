@@ -39,37 +39,6 @@ import NetInfo from "@react-native-community/netinfo";
 import * as Notifications from "expo-notifications";
 
 export default function App() {
-  //Network Connection Status
-  const [isConnected, setIsConnected] = useState(true);
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsConnected(state.isConnected);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!isConnected) {
-      showNotConnectedToast();
-      console.log(Notifications.getDevicePushTokenAsync().data);
-    } else {
-      showReconnectedToast();
-    }
-  }, [isConnected]);
-
-  const showNotConnectedToast = () => {
-    ToastAndroid.show(
-      "You are not connected to the internet 📶❌",
-      ToastAndroid.LONG
-    );
-  };
-
-  const showReconnectedToast = () => {
-    ToastAndroid.show("Connected to internet 🌐", ToastAndroid.LONG);
-  };
 
   //Font Section
   const [fontLoaded, setFontLoaded] = useState(false);

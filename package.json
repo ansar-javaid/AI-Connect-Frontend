@@ -76,7 +76,8 @@
     "redux": "^4.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "eslint": "^8.55.0"
   },
   "private": true
 }
