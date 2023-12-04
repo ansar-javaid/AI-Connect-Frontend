@@ -158,12 +158,10 @@ export default function UserHome({ navigation }) {
                                 justifyContent: "center",
                                 alignItems: "center",
                             }}
-                            onPress={() => {
-                                navigation.dispatch(StackActions.replace("Login"));
-                            }}
+                            onPress={() => navigation.navigate("UserHome")}
                         >
-                            <AntDesign name="logout" size={23} color="black" />
-                            <Text style={styles.regular}>Logout</Text>
+                            <AntDesign name="home" size={23} color="black" />
+                            <Text style={styles.regular}>Home</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={{

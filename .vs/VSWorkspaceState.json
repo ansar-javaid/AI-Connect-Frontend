@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\components",
-    "\\screens",
-    "\\screens\\user"
+    ""
   ],
-  "SelectedNode": "\\screens\\user\\ProfileScreen.js",
+  "SelectedNode": "\\screens",
   "PreviewInSolutionExplorer": false
 }

@@ -160,12 +160,9 @@ const NotificationScreen = ({ navigation }) => {
               justifyContent: "center",
               alignItems: "center",
             }}
-            onPress={() => {
-              navigation.navigate("Login");
-            }}
           >
-            <AntDesign name="logout" size={23} color="black" />
-            <Text style={{ fontFamily: "kumbh-Regular" }}>Logout</Text>
+            
+            <Text style={{ fontFamily: "kumbh-Regular" }}></Text>
           </TouchableOpacity>
 
           <TouchableOpacity
