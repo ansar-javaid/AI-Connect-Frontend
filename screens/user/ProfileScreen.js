@@ -244,7 +244,7 @@ export default function ProfileScreen1({ route, navigation }) {
                     style={styles.backgroundGradeint}
                 >
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <Text style={styles.CuConect}>AI CONNECT</Text>
+                        <Text style={styles.CuConect}>کامسیٹس منسلک</Text>
 
                         <TouchableOpacity>
                             <Image
@@ -438,13 +438,14 @@ const styles = StyleSheet.create({
         flex: 5,
     },
     CuConect: {
-        fontSize: 32,
+        fontSize: 20,
         width: "80%",
         height: 40,
         marginLeft: 26,
         marginTop: 37,
         color: "#FFFFFF",
-        fontFamily: "kumbh-Bold",
+        fontFamily: "Urdu-Font",
+        textAlign:'left'
     },
     search: {
         marginTop: 42,

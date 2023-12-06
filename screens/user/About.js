@@ -34,7 +34,7 @@ export default function About({ navigation }) {
                 colors={["#0094ff", "#00d1ff"]}
                 style={styles.searchContainer}
             >
-                <Text style={[styles.welcomeText, styles.extraBold]}>AI CONNECT</Text>
+                <Text style={[styles.welcomeText, styles.extraBold]}>کامسیٹس منسلک</Text>
             </LinearGradient>
             <Text style={[styles.content]}>Welcome to Cu-Connect, the social media app designed exclusively for university students! Our team is excited to offer a platform where students can connect with each other. {"\n"}
                 We understand that university can be a challenging and sometimes overwhelming experience, which is why we created Cu-Connect as a way to support and empower students.{"\n"}
@@ -105,14 +105,12 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 120,
         padding: 30,
     },
-    extraBold: {
-        fontFamily: 'kumbh-ExtraBold',
-    },
     welcomeText: {
-        fontSize: 28,
-        fontWeight: "600",
+        fontSize: 25,
         color: "#fff",
-        marginTop: 20
+        marginTop: 20,
+        fontFamily: "Urdu-Font",
+        textAlign:'left'
     },
     content: {
         margin: 10,

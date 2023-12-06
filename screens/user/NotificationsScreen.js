@@ -82,7 +82,7 @@ const NotificationScreen = ({ navigation }) => {
         colors={["#00D1FF", "#0094FF"]}
         style={styles.rectangletop}
       ></LinearGradient>
-      <Text style={styles.CuConect}>AI CONNECT</Text>
+      <Text style={styles.CuConect}>کامسیٹس منسلک</Text>
       <Text style={styles.welcome}>Welcome {name}</Text>
       {/* Notifications */}
       <Text style={styles.Notifications}>Notifications & Saved Items</Text>
@@ -191,14 +191,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#F4F4F4",
   },
   CuConect: {
-    fontSize: 32,
-    width: "100%",
-    height: 40,
-    left: 10,
-    top: 40,
-    color: "#FFFFFF",
-    fontFamily: "kumbh-Bold",
-  },
+    fontSize: 25,      
+    marginLeft: 15,
+    color: "#fff",
+    fontFamily: "Urdu-Font",
+    top: 30,
+    textAlign:"left"
+},
   rectangletop: {
     position: "absolute",
     width: "100%",
@@ -207,12 +206,12 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 16,
-    width: 400,
-    height: 21,
+    width: "100%",
+    height: 30,
     left: 10,
-    top: 50,
     color: "#FFFFFF",
     fontFamily: "kumbh-Bold",
+    top: 40,
   },
   Notifications: {
     color: "#5C5C5C",

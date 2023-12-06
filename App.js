@@ -28,7 +28,7 @@ import KumbhSansRegular from "./assets/fonts/KumbhSans-Regular.ttf";
 import KumbhSansBold from "./assets/fonts/KumbhSans-Bold.ttf";
 import KumbhSansLight from "./assets/fonts/KumbhSans-Light.ttf";
 import KumbhSansExtraBold from "./assets/fonts/KumbhSans-ExtraBold.ttf";
-import { Audio } from "expo-av";
+import UrduFont from "./assets/fonts/Urdu-font.ttf"
 import About from "./screens/user/About";
 import ContactUs from "./screens/user/ContactUs";
 import PrivacyPolicy from "./screens/user/PrivacyPolicy";
@@ -49,6 +49,7 @@ export default function App() {
           "kumbh-Regular": KumbhSansRegular,
           "kumbh-Bold": KumbhSansBold,
           "kumbh-ExtraBold": KumbhSansExtraBold,
+          "Urdu-Font":UrduFont
         }),
       ]);
     }

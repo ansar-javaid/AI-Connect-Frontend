@@ -100,14 +100,15 @@ export default function UserHome({ navigation }) {
                 colors={["#0094ff", "#00d1ff"]}
                 style={styles.searchContainer}
             >
-                <Text style={[styles.welcomeText, styles.extraBold]}>AI CONNECT</Text>
+                {/* <Text style={[styles.welcomeText, styles.extraBold]}>CU</Text> */}
+                <Text style={[styles.welcomeText, styles.Urdu]}>کامسیٹس منسلک</Text>
                 <TouchableOpacity
                     style={styles.search}
                     onPress={() => navigation.navigate("SearchScreen")}
                 >
                     <TextInput
                         style={styles.regular}
-                        placeholder="          Search"
+                        placeholder="        Search"
                         editable={false}
                     />
                 </TouchableOpacity>
@@ -210,8 +211,8 @@ const styles = StyleSheet.create({
     bold: {
         fontFamily: "kumbh-Bold",
     },
-    extraBold: {
-        fontFamily: "kumbh-ExtraBold",
+    Urdu: {
+        fontFamily: "Urdu-Font",
     },
     light: {
         fontFamily: "kumbh-Regular",
@@ -237,7 +238,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         borderRadius: 50,
         textAlign: "center",
-        width: "40%",
+        width: "35%",
     },
     searchIcon: {
         position: "absolute",
@@ -250,9 +251,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 28,
     },
     welcomeText: {
-        fontSize: 28,
-        fontWeight: "600",
-        marginLeft: 20,
+        fontSize: 25,      
+        marginLeft: 15,
         color: "#fff",
     },
     welcomeInput: {

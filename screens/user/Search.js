@@ -96,7 +96,7 @@ export default function Search () {
           size={20}
           color="#888"
           style={styles.clearIcon}
-          onPress={() => setSearchText("")}
+          onPress={() => navigation.navigate("UserHome")}
         />
       </View>
       <ScrollView contentContainerStyle={styles.listContainer}>

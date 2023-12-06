@@ -30,7 +30,7 @@ const MenuScreen = ({ navigation }) => {
                 colors={["#00D1FF", "#0094FF"]}
                 style={styles.rectangletop}
             >
-                <Text style={styles.CuConect}>AI CONNECT</Text>
+                <Text style={styles.CuConect}>کامسیٹس منسلک</Text>
                 <Text style={styles.Welcomemsg}>Welcome {name}</Text>
             </LinearGradient>
 
@@ -244,22 +244,21 @@ const styles = StyleSheet.create({
         top: 700,
     },
     CuConect: {
-        fontSize: 32,
-        width: "100%",
-        height: 36,
-        left: 10,
-        color: "#FFFFFF",
-        fontFamily: "kumbh-Bold",
-        top: 40,
+        fontSize: 25,      
+        marginLeft: 15,
+        color: "#fff",
+        fontFamily: "Urdu-Font",
+        top: 30,
+        textAlign:"left"
     },
     Welcomemsg: {
         fontSize: 16,
         width: "100%",
-        height: 34,
+        height: 30,
         left: 10,
         color: "#FFFFFF",
         fontFamily: "kumbh-Bold",
-        top: 60,
+        top: 40,
     },
 
     rectangletop: {

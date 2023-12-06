@@ -31,7 +31,7 @@ export default function ContactUs({ navigation }) {
         colors={["#0094ff", "#00d1ff"]}
         style={styles.searchContainer}
       >
-        <Text style={[styles.welcomeText, styles.extraBold]}>AI CONNECT</Text>
+        <Text style={[styles.welcomeText]}>کامسیٹس منسلک</Text>
       </LinearGradient>
       <Text style={[styles.content]}>
         Welcome to the Cu-Connect contact us page. We’re always here to help and
@@ -106,9 +106,10 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: 28,
-    fontWeight: "600",
+    fontFamily: "Urdu-Font",
     color: "#fff",
     marginTop: 20,
+    textAlign:'left'
   },
   content: {
     margin: 10,

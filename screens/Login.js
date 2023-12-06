@@ -203,7 +203,7 @@ export default function Login({ navigation }) {
         style={styles.logoImage }
         source={require("../assets/comsatslogo.png")}
       />
-      <Text style={[styles.logoText, styles.bold]}>AI CONNECT</Text>
+      <Text style={[styles.logoText, styles.Urdu]}>کامسیٹس منسلک</Text>
 
       <ScrollView
         style={{
@@ -217,7 +217,7 @@ export default function Login({ navigation }) {
         <View
           style={{
             backgroundColor: "#f1f2f3",
-            paddingBottom: 40,
+            paddingBottom: 30,
             borderTopLeftRadius: 50,
             borderTopRightRadius: 50,
             fontFamily: "kumbh-Regular",
@@ -411,6 +411,9 @@ const styles = StyleSheet.create({
   light: {
     fontFamily: "kumbh-Regular",
   },
+  Urdu: {
+    fontFamily: "Urdu-Font",
+},
   topImage: {
     top: 0,
     minHeight: "42%",
@@ -434,7 +437,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 30,
     position: "absolute",
-    top: 250,
+    top: 240,
     width: "100%",
     textAlign: "center",
     fontFamily: "kumbh-Bold",
