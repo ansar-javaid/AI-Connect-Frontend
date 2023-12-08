@@ -28,17 +28,61 @@ import KumbhSansRegular from "./assets/fonts/KumbhSans-Regular.ttf";
 import KumbhSansBold from "./assets/fonts/KumbhSans-Bold.ttf";
 import KumbhSansLight from "./assets/fonts/KumbhSans-Light.ttf";
 import KumbhSansExtraBold from "./assets/fonts/KumbhSans-ExtraBold.ttf";
-import UrduFont from "./assets/fonts/Urdu-font.ttf"
+import UrduFont from "./assets/fonts/Urdu-font.ttf";
 import About from "./screens/user/About";
 import ContactUs from "./screens/user/ContactUs";
 import PrivacyPolicy from "./screens/user/PrivacyPolicy";
 import FollowedAccounts from "./screens/user/FollowedAccounts.js";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 import * as Notifications from "expo-notifications";
 
 export default function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState("");
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    checkAuthentication();
+  }, []);
+
+  const checkAuthentication = async () => {
+    const storedToken = await AsyncStorage.getItem("token");
+    const storedRole = await AsyncStorage.getItem("role");
+
+    if (storedToken) {
+      // If token is present, check its validity and expiration
+      const isValidToken = await validateToken(storedToken);
+
+      if (isValidToken) {
+        setToken(storedToken);
+        setRole(storedRole || "");
+        setAuthenticated(true);
+      } else {
+        // Token is invalid or expired, clear token and role
+        await AsyncStorage.removeItem("token");
+        await AsyncStorage.removeItem("role");
+        setAuthenticated(false);
+      }
+    } else {
+      // No token available
+      setAuthenticated(false);
+    }
+
+    setLoading(false);
+  };
+
+  const validateToken = async (token) => {
+    // Implement your token validation logic here
+    // This may include checking expiration, revocation, etc.
+    // You can use server-side validation or decode the token client-side
+    // and check the expiration timestamp.
+    // Return true if the token is valid, false otherwise.
+    return true;
+  };
 
   //Font Section
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -49,7 +93,7 @@ export default function App() {
           "kumbh-Regular": KumbhSansRegular,
           "kumbh-Bold": KumbhSansBold,
           "kumbh-ExtraBold": KumbhSansExtraBold,
-          "Urdu-Font":UrduFont
+          "Urdu-Font": UrduFont,
         }),
       ]);
     }
@@ -64,7 +108,6 @@ export default function App() {
   }
 
   const Tab = createBottomTabNavigator();
-  const Stack = createNativeStackNavigator();
 
   console.disableYellowBox = true;
 
@@ -72,138 +115,248 @@ export default function App() {
     <Provider store={store}>
       <SafeAreaView style={styles.container}>
         <StatusBar style="auto" />
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              options={{
-                headerShown: false,
-                title: "Logout",
-                StackBarStyle: { display: "none" },
-              }}
-              name="Splash"
-              component={StartUpAnimation}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "Login" }}
-              name="Login"
-              component={Login}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "Sign Up" }}
-              name="Signup"
-              component={Signup}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "Admin Panel" }}
-              name="Home"
-              component={AdminHome}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "Cr" }}
-              name="Cr"
-              component={Cr}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "CreateProfile" }}
-              name="CreateProfile"
-              component={CreateProfile}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "Resetemail" }}
-              name="Resetemail"
-              component={Resetemail}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "Resetpassword" }}
-              name="Resetpassword"
-              component={Resetpassword}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "CreateDepartment" }}
-              name="CreateDepartment"
-              component={CreateDepartment}
-            />
-            <Stack.Screen
-              options={{
-                headerShown: false,
-                title: "HomescreenDetails",
-                unmountOnBlur: true,
-              }}
-              name="HomescreenDetails"
-              component={HomescreenDetails}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "UserHome" }}
-              name="UserHome"
-              component={UserHome}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "Type" }}
-              name="Type"
-              component={TypeScreen}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "SuperAdminHome" }}
-              name="SuperAdminHome"
-              component={SuperAdminHome}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "ProfileScreen" }}
-              name="ProfileScreen"
-              component={ProfileScreen}
-            />
-
-            <Stack.Screen
-              options={{ headerShown: false, title: "PostedScreen" }}
-              name="PostedScreen"
-              component={Posted}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "NotificationsScreen" }}
-              name="NotificationsScreen"
-              component={NotificationScreen}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "MenuScreen" }}
-              name="MenuScreen"
-              component={MenuScreen}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "CreatedScreen" }}
-              name="CreatedScreen"
-              component={CreatedScreen}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "SearchScreen" }}
-              name="SearchScreen"
-              component={Search}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "AboutScreen" }}
-              name="AboutScreen"
-              component={About}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "ContactScreen" }}
-              name="ContactScreen"
-              component={ContactUs}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "PrivacyScreen" }}
-              name="PrivacyScreen"
-              component={PrivacyPolicy}
-            />
-            <Stack.Screen
-              options={{ headerShown: false, title: "FollowedAccounts" }}
-              name="FollowedAccounts"
-              component={FollowedAccounts}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        {authenticated ? (
+          // If authenticated, render the authenticated stack
+          <AuthenticatedStack token={token} role={role} />
+        ) : (
+          // If not authenticated, render the login stack
+          <LoginStack />
+        )}
       </SafeAreaView>
     </Provider>
   );
 }
+
+const AuthenticatedStack = ({ token, role }) => {
+  const Stack = createNativeStackNavigator();
+  return (
+    <NavigationContainer>
+      {/* Existing screens... */}
+      {/* Add other screens based on the user's role */}
+      {role === "Admin" && (
+        <Stack.Navigator>
+          <Stack.Screen
+            options={{ headerShown: false, title: "Admin Panel" }}
+            name="Home"
+            component={AdminHome}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "CreateDepartment" }}
+            name="CreateDepartment"
+            component={CreateDepartment}
+          />
+        </Stack.Navigator>
+      )}
+      {role === "Supper" && (
+        <Stack.Navigator>
+          <Stack.Screen
+            options={{ headerShown: false, title: "SuperAdminHome" }}
+            name="SuperAdminHome"
+            component={SuperAdminHome}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Cr" }}
+            name="Cr"
+            component={Cr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "CreateProfile" }}
+            name="CreateProfile"
+            component={CreateProfile}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "CreateDepartment" }}
+            name="CreateDepartment"
+            component={CreateDepartment}
+          />
+        </Stack.Navigator>
+      )}
+      {role === "User" && (
+        <Stack.Navigator>
+          <Stack.Screen
+            options={{ headerShown: false, title: "UserHome" }}
+            name="UserHome"
+            component={UserHome}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "ProfileScreen" }}
+            name="ProfileScreen"
+            component={ProfileScreen}
+          />
+
+          <Stack.Screen
+            options={{ headerShown: false, title: "PostedScreen" }}
+            name="PostedScreen"
+            component={Posted}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "NotificationsScreen" }}
+            name="NotificationsScreen"
+            component={NotificationScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "MenuScreen" }}
+            name="MenuScreen"
+            component={MenuScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "CreatedScreen" }}
+            name="CreatedScreen"
+            component={CreatedScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "SearchScreen" }}
+            name="SearchScreen"
+            component={Search}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "AboutScreen" }}
+            name="AboutScreen"
+            component={About}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "ContactScreen" }}
+            name="ContactScreen"
+            component={ContactUs}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "PrivacyScreen" }}
+            name="PrivacyScreen"
+            component={PrivacyPolicy}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "FollowedAccounts" }}
+            name="FollowedAccounts"
+            component={FollowedAccounts}
+          />
+        </Stack.Navigator>
+      )}
+      
+    </NavigationContainer>
+  );
+};
+
+const LoginStack = () => {
+  const Stack = createNativeStackNavigator();
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {/* Existing login and signup screens... */}
+        <Stack.Screen
+          options={{
+            headerShown: false,
+            title: "Logout",
+            StackBarStyle: { display: "none" },
+          }}
+          name="Splash"
+          component={StartUpAnimation}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "Login" }}
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "Sign Up" }}
+          name="Signup"
+          component={Signup}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "Resetemail" }}
+          name="Resetemail"
+          component={Resetemail}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "Resetpassword" }}
+          name="Resetpassword"
+          component={Resetpassword}
+        />
+
+          <Stack.Screen
+            options={{ headerShown: false, title: "Admin Panel" }}
+            name="Home"
+            component={AdminHome}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "SuperAdminHome" }}
+            name="SuperAdminHome"
+            component={SuperAdminHome}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Cr" }}
+            name="Cr"
+            component={Cr}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "CreateProfile" }}
+            name="CreateProfile"
+            component={CreateProfile}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "CreateDepartment" }}
+            name="CreateDepartment"
+            component={CreateDepartment}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "UserHome" }}
+            name="UserHome"
+            component={UserHome}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "ProfileScreen" }}
+            name="ProfileScreen"
+            component={ProfileScreen}
+          />
+
+          <Stack.Screen
+            options={{ headerShown: false, title: "PostedScreen" }}
+            name="PostedScreen"
+            component={Posted}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "NotificationsScreen" }}
+            name="NotificationsScreen"
+            component={NotificationScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "MenuScreen" }}
+            name="MenuScreen"
+            component={MenuScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "CreatedScreen" }}
+            name="CreatedScreen"
+            component={CreatedScreen}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "SearchScreen" }}
+            name="SearchScreen"
+            component={Search}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "AboutScreen" }}
+            name="AboutScreen"
+            component={About}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "ContactScreen" }}
+            name="ContactScreen"
+            component={ContactUs}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "PrivacyScreen" }}
+            name="PrivacyScreen"
+            component={PrivacyPolicy}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "FollowedAccounts" }}
+            name="FollowedAccounts"
+            component={FollowedAccounts}
+          />
+        </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
