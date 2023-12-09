@@ -46,7 +46,7 @@ export default function Post({
           <Text style={styles.postText}>{text}</Text>
           <ImageSlider
             data={file.map((url) => ({ img: url.path }))}
-            autoPlay={true}
+            autoPlay={false}
             closeIconColor="#fff"
             caroselImageStyle={{ resizeMode: "cover" }}
             preview={true}
@@ -113,7 +113,7 @@ const ImageContainer = React.memo(({ images }) => {
     <View>
       <ImageSlider
         data={images.map((url) => ({ img: url.path }.reverse()))}
-        autoPlay={true}
+        autoPlay={false}
         closeIconColor="#fff"
         caroselImageStyle={{ resizeMode: "cover" }}
         preview={true}

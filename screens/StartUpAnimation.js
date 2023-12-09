@@ -36,7 +36,7 @@ export default function StartUpAnimation({ navigation }) {
       colors={["#105DA5", "#4B277E"]}
       style={styles.container}
     >
-      <Text style={styles.cuconnect}>AI CONNECT</Text>
+      <Text style={styles.cuconnect}>کامسیٹس منسلک</Text>
       <Animated.Image
         source={comsatslogo}
         style={[styles.logo, { transform: [{ rotateY: spin }] }]}
@@ -67,6 +67,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 40,
     paddingBottom: 35,
-    fontFamily:'kumbh-ExtraBold'
+    fontFamily: "Urdu-Font",
   },
 });

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "slug": "ai-connect",
-    "name": "AI Connect",
+    "slug": "comsats-munsalik",
+    "name": "Munsalik",
     "orientation": "portrait",
     "icon": "./assets/app.png",
     "splash": {
@@ -14,11 +14,11 @@
         "foregroundImage": "./assets/app.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.ansar.ai.connect"
+      "package": "com.ansar.cu.munsalik"
     },
     "extra": {
       "eas": {
-        "projectId": "0a09c96f-183f-4ed4-a51e-2c3f70c3ba16"
+        "projectId": "6ba4b2b7-7f7e-4f75-8c78-396d654e5529"
       }
     }
   }

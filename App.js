@@ -141,9 +141,43 @@ const AuthenticatedStack = ({ token, role }) => {
             component={AdminHome}
           />
           <Stack.Screen
-            options={{ headerShown: false, title: "CreateDepartment" }}
-            name="CreateDepartment"
-            component={CreateDepartment}
+            options={{
+              headerShown: false,
+              title: "HomescreenDetails",
+              unmountOnBlur: true,
+            }}
+            name="HomescreenDetails"
+            component={HomescreenDetails}
+          />
+          {/*Shared Navigation Screens*/}
+          <Stack.Screen
+            options={{
+              headerShown: false,
+              title: "Logout",
+              StackBarStyle: { display: "none" },
+            }}
+            name="Splash"
+            component={StartUpAnimation}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Login" }}
+            name="Login"
+            component={Login}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Sign Up" }}
+            name="Signup"
+            component={Signup}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Resetemail" }}
+            name="Resetemail"
+            component={Resetemail}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Resetpassword" }}
+            name="Resetpassword"
+            component={Resetpassword}
           />
         </Stack.Navigator>
       )}
@@ -169,6 +203,36 @@ const AuthenticatedStack = ({ token, role }) => {
             name="CreateDepartment"
             component={CreateDepartment}
           />
+          {/*Shared Navigation Screens*/}
+          <Stack.Screen
+            options={{
+              headerShown: false,
+              title: "Logout",
+              StackBarStyle: { display: "none" },
+            }}
+            name="Splash"
+            component={StartUpAnimation}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Login" }}
+            name="Login"
+            component={Login}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Sign Up" }}
+            name="Signup"
+            component={Signup}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Resetemail" }}
+            name="Resetemail"
+            component={Resetemail}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Resetpassword" }}
+            name="Resetpassword"
+            component={Resetpassword}
+          />
         </Stack.Navigator>
       )}
       {role === "User" && (
@@ -179,11 +243,15 @@ const AuthenticatedStack = ({ token, role }) => {
             component={UserHome}
           />
           <Stack.Screen
+            options={{ headerShown: false, title: "HomescreenDetails" }}
+            name="HomescreenDetails"
+            component={HomescreenDetails}
+          />
+          <Stack.Screen
             options={{ headerShown: false, title: "ProfileScreen" }}
             name="ProfileScreen"
             component={ProfileScreen}
           />
-
           <Stack.Screen
             options={{ headerShown: false, title: "PostedScreen" }}
             name="PostedScreen"
@@ -229,9 +297,38 @@ const AuthenticatedStack = ({ token, role }) => {
             name="FollowedAccounts"
             component={FollowedAccounts}
           />
+          {/*Shared Navigation Screens*/}
+          <Stack.Screen
+            options={{
+              headerShown: false,
+              title: "Logout",
+              StackBarStyle: { display: "none" },
+            }}
+            name="Splash"
+            component={StartUpAnimation}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Login" }}
+            name="Login"
+            component={Login}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Sign Up" }}
+            name="Signup"
+            component={Signup}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Resetemail" }}
+            name="Resetemail"
+            component={Resetemail}
+          />
+          <Stack.Screen
+            options={{ headerShown: false, title: "Resetpassword" }}
+            name="Resetpassword"
+            component={Resetpassword}
+          />
         </Stack.Navigator>
       )}
-      
     </NavigationContainer>
   );
 };
@@ -272,88 +369,93 @@ const LoginStack = () => {
           component={Resetpassword}
         />
 
-          <Stack.Screen
-            options={{ headerShown: false, title: "Admin Panel" }}
-            name="Home"
-            component={AdminHome}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "SuperAdminHome" }}
-            name="SuperAdminHome"
-            component={SuperAdminHome}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "Cr" }}
-            name="Cr"
-            component={Cr}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "CreateProfile" }}
-            name="CreateProfile"
-            component={CreateProfile}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "CreateDepartment" }}
-            name="CreateDepartment"
-            component={CreateDepartment}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "UserHome" }}
-            name="UserHome"
-            component={UserHome}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "ProfileScreen" }}
-            name="ProfileScreen"
-            component={ProfileScreen}
-          />
+        <Stack.Screen
+          options={{ headerShown: false, title: "Admin Panel" }}
+          name="Home"
+          component={AdminHome}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "SuperAdminHome" }}
+          name="SuperAdminHome"
+          component={SuperAdminHome}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "Cr" }}
+          name="Cr"
+          component={Cr}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "CreateProfile" }}
+          name="CreateProfile"
+          component={CreateProfile}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "CreateDepartment" }}
+          name="CreateDepartment"
+          component={CreateDepartment}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "UserHome" }}
+          name="UserHome"
+          component={UserHome}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "ProfileScreen" }}
+          name="ProfileScreen"
+          component={ProfileScreen}
+        />
 
-          <Stack.Screen
-            options={{ headerShown: false, title: "PostedScreen" }}
-            name="PostedScreen"
-            component={Posted}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "NotificationsScreen" }}
-            name="NotificationsScreen"
-            component={NotificationScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "MenuScreen" }}
-            name="MenuScreen"
-            component={MenuScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "CreatedScreen" }}
-            name="CreatedScreen"
-            component={CreatedScreen}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "SearchScreen" }}
-            name="SearchScreen"
-            component={Search}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "AboutScreen" }}
-            name="AboutScreen"
-            component={About}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "ContactScreen" }}
-            name="ContactScreen"
-            component={ContactUs}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "PrivacyScreen" }}
-            name="PrivacyScreen"
-            component={PrivacyPolicy}
-          />
-          <Stack.Screen
-            options={{ headerShown: false, title: "FollowedAccounts" }}
-            name="FollowedAccounts"
-            component={FollowedAccounts}
-          />
-        </Stack.Navigator>
+        <Stack.Screen
+          options={{ headerShown: false, title: "PostedScreen" }}
+          name="PostedScreen"
+          component={Posted}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "NotificationsScreen" }}
+          name="NotificationsScreen"
+          component={NotificationScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "MenuScreen" }}
+          name="MenuScreen"
+          component={MenuScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "CreatedScreen" }}
+          name="CreatedScreen"
+          component={CreatedScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "SearchScreen" }}
+          name="SearchScreen"
+          component={Search}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "AboutScreen" }}
+          name="AboutScreen"
+          component={About}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "ContactScreen" }}
+          name="ContactScreen"
+          component={ContactUs}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "PrivacyScreen" }}
+          name="PrivacyScreen"
+          component={PrivacyPolicy}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "FollowedAccounts" }}
+          name="FollowedAccounts"
+          component={FollowedAccounts}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "HomescreenDetails" }}
+          name="HomescreenDetails"
+          component={HomescreenDetails}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

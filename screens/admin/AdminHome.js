@@ -22,8 +22,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../../Store/authSlice";
 import CreatePost from "../../components/CreatePost";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import * as Updates from "expo-updates";
 
 export default function AdminHome({ navigation }) {
   const dispatch = useDispatch();
@@ -43,12 +44,21 @@ export default function AdminHome({ navigation }) {
   // Get the Profile Image from the global state using the useSelector hook
   const profileImage = useSelector((state) => state.auth.profileImage);
 
+  const Logout = async () => {
+    AsyncStorage.clear();
+    try {
+      await Updates.reloadAsync();
+    } catch {}
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Splash" }],
+    });
+  };
 
   // useEffect hook to fetch data when the component mounts
   useEffect(() => {
     getLocalData();
   }, []);
-
 
   // Function to fetch data from local storage and APIs
   const getLocalData = async () => {
@@ -56,14 +66,13 @@ export default function AdminHome({ navigation }) {
     dispatch(logout());
     try {
       const id = await AsyncStorage.getItem("profileId");
-      
+
       // Fetch the profile data using the profile ID from the API
       const response = await axios.get(
         `${BASE_URL}/profile/GetProfileOnly?id=${id}`,
         { headers: { accept: "*/*" } }
       );
       if (response.status === 200) {
-       
         // Dispatch the login action to update the global state with the fetched profile data
         dispatch(login(response.data));
         // Fetch all the posts by the profile using the profile ID from the API
@@ -76,17 +85,14 @@ export default function AdminHome({ navigation }) {
 
   // Function to fetch all the posts by the profile from the API
   const getAllPosts = async (id) => {
-   
     try {
       const response = await axios.get(
         `${BASE_URL}/posts/GetPostsByProfile?id=${id}`,
         { headers: { accept: "*/*" } }
       );
       if (response.status === 200) {
-       
         // Store the fetched posts in the state variable
         setPosts(response.data);
-        
       }
     } catch (error) {
       console.error(error.response.status);
@@ -99,10 +105,10 @@ export default function AdminHome({ navigation }) {
       screen: "HomescreenDetails",
       params: post,
     });
-  };
-  
-   // Function to refresh the screen
-   const onRefresh = React.useCallback(() => {
+  }
+
+  // Function to refresh the screen
+  const onRefresh = React.useCallback(() => {
     setPosts([]);
     setRefreshing(true);
     getLocalData().then(() => setRefreshing(false));
@@ -114,7 +120,7 @@ export default function AdminHome({ navigation }) {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       enabled={false}
     >
-    <StatusBar style="auto" />
+      <StatusBar style="auto" />
       <LinearGradient
         start={{ x: 0, y: 1 }}
         end={{ x: 0, y: 0 }}
@@ -153,39 +159,69 @@ export default function AdminHome({ navigation }) {
       <View style={styles.postsContainer}>
         <Text style={styles.postText}>Recent Posts</Text>
         <ScrollView
-         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
-          {posts.map((post) => {
-            return (
-              <View style={styles.post}>
-                <Post
-                  departmentName={post.profileTitle}
-                  time={post.postsCreatedOn}
-                  likes={post.likes}
-                  views={post.views}
-                  shares={post.shares}
-                  text={post.postDescription}
-                  file={post.filePath}
-                  gotoDetails={gotoDetailsComp}
-                  profileImage={profileImage}
-                />
-              </View>
-            );
-          }).reverse()}
+          {posts
+            .map((post) => {
+              return (
+                <View style={styles.post} key={post.postID}>
+                  <Post
+                    departmentName={post.profileTitle}
+                    time={post.postsCreatedOn}
+                    likes={post.likes}
+                    views={post.views}
+                    shares={post.shares}
+                    text={post.postDescription}
+                    file={post.filePath}
+                    gotoDetails={gotoDetailsComp}
+                    profileImage={profileImage}
+                  />
+                </View>
+              );
+            })
+            .reverse()}
         </ScrollView>
         <View style={styles.lowborder}>
-
-        <View style={styles.menuContainer}>
-          <TouchableOpacity style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} onPress={()=>{navigation.dispatch(StackActions.replace('Login'));}}>
-            <AntDesign name="logout" size={23} color="black" />
-            <Text style={{fontFamily:'kumbh-Regular'}}>Logout</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: -45 }} onPress={() => setModalVisible(true)}>
-          <AntDesign name="pluscircleo" size={23} color="white" style={{ backgroundColor:'#105da5', paddingHorizontal: 28, paddingVertical: 10, borderRadius: 30}}/>
-          </TouchableOpacity>
-          <View></View>
+          <View style={styles.menuContainer}>
+            <TouchableOpacity
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                Logout();
+              }}
+            >
+              <AntDesign name="logout" size={23} color="black" />
+              <Text style={{ fontFamily: "kumbh-Regular" }}>Logout</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: -45,
+              }}
+              onPress={() => setModalVisible(true)}
+            >
+              <AntDesign
+                name="pluscircleo"
+                size={23}
+                color="white"
+                style={{
+                  backgroundColor: "#105da5",
+                  paddingHorizontal: 28,
+                  paddingVertical: 10,
+                  borderRadius: 30,
+                }}
+              />
+            </TouchableOpacity>
+            <View></View>
+          </View>
         </View>
-      </View>
       </View>
       <Modal
         animationType="slide"
@@ -197,7 +233,14 @@ export default function AdminHome({ navigation }) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <CreatePost departmentName={title} profileId={id} profileImage={profileImage} posted={()=>{onRefresh()}}/>
+            <CreatePost
+              departmentName={title}
+              profileId={id}
+              profileImage={profileImage}
+              posted={() => {
+                onRefresh();
+              }}
+            />
           </View>
         </View>
       </Modal>
@@ -225,7 +268,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 50,
     textAlign: "center",
-    fontFamily:'kumbh-Regular'
+    fontFamily: "kumbh-Regular",
   },
   searchIcon: {
     position: "absolute",
@@ -239,7 +282,7 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: 25,
-    fontFamily:'kumbh-Bold',
+    fontFamily: "kumbh-Bold",
     marginLeft: 20,
     color: "#fff",
   },
@@ -247,7 +290,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff",
     marginVertical: 16,
-    fontFamily:'kumbh-Regular'
+    fontFamily: "kumbh-Regular",
   },
   buttonInner: {
     width: "25%",
@@ -259,7 +302,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#fff",
     fontSize: 16,
-    fontFamily:'kumbh-Regular'
+    fontFamily: "kumbh-Regular",
   },
   postsContainer: {
     flex: 14,
@@ -271,7 +314,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 5,
     marginLeft: 20,
-    fontFamily:'kumbh-Bold'
+    fontFamily: "kumbh-Bold",
   },
   centeredView: {
     flex: 1,
@@ -295,32 +338,29 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   lowborder: {
-
-    flexDirection: 'row',
-    position: 'absolute',
+    flexDirection: "row",
+    position: "absolute",
     bottom: 0,
     backgroundColor: "#ddd",
     width: "100%",
     height: 70,
     borderTopRightRadius: 28,
     borderTopLeftRadius: 28,
-    justifyContent: 'space-between',
-    
-    paddingHorizontal: 20
+    justifyContent: "space-between",
 
-
+    paddingHorizontal: 20,
   },
   lgout: {
     position: "absolute",
     width: 25,
     height: 25,
     top: 10,
-    left: 0
+    left: 0,
   },
   menuContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  }
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 });

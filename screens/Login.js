@@ -26,21 +26,7 @@ import signalRService from "../notifications/SignalRService";
 
 export default function Login({ navigation }) {
  
-  // used to perform side effects
-  useEffect(() => {
-    playSound();
-  }, []);
 
-  //Welcome Voice
-  const playSound = async () => {
-    try {
-      const soundObject = new Audio.Sound();
-      await soundObject.loadAsync(require("../assets/sounds/Welcome.mp3"));
-      await soundObject.playAsync();
-    } catch (error) {
-      console.log("Error occurred while playing sound:", error);
-    }
-  };
 
   // Some Use States
   const [username, setUsername] = useState(""); // initialize a state variable for the username input
@@ -125,7 +111,7 @@ export default function Login({ navigation }) {
           console.log(response.data);
           AsyncStorage.clear();
           setModelMsg([
-            "User Not Found!: " + response.data.statusCode,
+            "User Not Found!: ",
             "Try Again!",
           ]); // Set the message for the popup dialog to inform the user that the login was unsuccessful
           MyModal("", "", modalVisible, setModalVisible(true)); // Show a popup dialog with the specified message
@@ -136,7 +122,7 @@ export default function Login({ navigation }) {
         setLoading(false); // Stop the loading animation
         console.log(error);
         setModelMsg([
-          "User Not Found!: " + error.response.status,
+          "User Not Found!: ",
           "Try Again!",
         ]); // Set the message for the popup dialog to inform the user that the login was unsuccessful
         MyModal("", "", modalVisible, setModalVisible(true)); // Show a popup dialog with the specified message
@@ -152,7 +138,7 @@ export default function Login({ navigation }) {
       .then((role) => {
         setModelMsg(["Login Successful!: ", "Continue"]); // Set the message for the popup dialog to inform the user that the login was successful
         if (role == "User") {
-          signalRService.startConnection(token);
+          //signalRService.startConnection(token);
           setTimeout(() => {
             navigation.navigate("UserHome"); // Navigate to the Home screen after a delay if the user's role is "User"
             setModalVisible(false); // Hide the popup dialog

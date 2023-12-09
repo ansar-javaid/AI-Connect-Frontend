@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 28,
     },
     welcomeText: {
-        fontSize: 25,      
+        fontSize: 28,      
         marginLeft: 15,
         color: "#fff",
     },
