@@ -39,6 +39,56 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 import * as Notifications from "expo-notifications";
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
+
+const registerForPushNotificationsAsync = async () => {
+  try {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      console.error('Failed to get push token for push notification!');
+      return null;
+    }
+
+    const token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log('Expo Push Token:', token);
+
+    // Send the token to your server
+    //sendTokenToServer(token);
+
+    return token;
+  } catch (error) {
+    console.error('Error getting Expo Push Token:', error);
+    return null;
+  }
+};
+
+const sendTokenToServer = (token) => {
+  // Implement your logic to send the token to your server
+  // Use a fetch or any other method to send the token
+  // Example:
+  // fetch('YOUR_SERVER_ENDPOINT', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({ token }),
+  // });
+};
+
 export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -47,6 +97,22 @@ export default function App() {
 
   useEffect(() => {
     checkAuthentication();
+  }, []);
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationReceivedListener((notification) => {
+      console.log('Notification received:', notification);
+      // Handle the notification as needed
+      // You can update state, show an alert, etc.
+    });
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   const checkAuthentication = async () => {

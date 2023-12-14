@@ -15,8 +15,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CardNine } from "react-native-card-ui";
 
-export default function Search () {
+export default function Search() {
   const [searchText, setSearchText] = useState("");
   const [profiles, setProfiles] = useState([]);
 
@@ -66,8 +67,12 @@ export default function Search () {
   };
 
   const renderItem = (item) => (
-    <TouchableOpacity key={item.profileID} onPress={() => navigateToProfile(item)} activeOpacity={0.7}>
-      <View style={styles.itemContainer}>
+    <TouchableOpacity
+      key={item.profileID}
+      onPress={() => navigateToProfile(item)}
+      activeOpacity={0.7}
+    >
+      {/* <View style={styles.itemContainer}>
         <Image source={{ uri: item.path }} style={styles.image} />
         <View style={styles.itemTextContainer}>
           <Text style={styles.title}>{item.profileTitle}</Text>
@@ -75,7 +80,14 @@ export default function Search () {
             {item.profileDescription}
           </Text>
         </View>
-      </View>
+      </View> */}
+      <CardNine
+        title={item.profileTitle}
+        subTitle={item.profileDescription}
+        image={{
+          uri: item.path,
+        }}
+      />
     </TouchableOpacity>
   );
 
@@ -83,7 +95,12 @@ export default function Search () {
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.searchContainer}>
-        <Ionicons name="ios-search" size={20} color="#888" style={styles.searchIcon} />
+        <Ionicons
+          name="ios-search"
+          size={20}
+          color="#888"
+          style={styles.searchIcon}
+        />
         <TextInput
           style={styles.searchInput}
           placeholder="Search"
@@ -104,7 +121,7 @@ export default function Search () {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
