@@ -111,7 +111,7 @@ export default function Login({ navigation }) {
           console.log(response.data);
           AsyncStorage.clear();
           setModelMsg([
-            "User Not Found!: ",
+            "Login failed! Invalid email & password!",
             "Try Again!",
           ]); // Set the message for the popup dialog to inform the user that the login was unsuccessful
           MyModal("", "", modalVisible, setModalVisible(true)); // Show a popup dialog with the specified message
@@ -122,7 +122,7 @@ export default function Login({ navigation }) {
         setLoading(false); // Stop the loading animation
         console.log(error);
         setModelMsg([
-          "User Not Found!: ",
+          "Login failed! Invalid email & password!",
           "Try Again!",
         ]); // Set the message for the popup dialog to inform the user that the login was unsuccessful
         MyModal("", "", modalVisible, setModalVisible(true)); // Show a popup dialog with the specified message
@@ -510,7 +510,7 @@ const styles = StyleSheet.create({
     fontFamily: "kumbh-Regular",
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 10,
     elevation: 2,
     fontFamily: "kumbh-Regular",

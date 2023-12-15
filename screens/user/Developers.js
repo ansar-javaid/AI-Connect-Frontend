@@ -3,7 +3,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  TextInput,
+  Linking,
   Image,
 } from "react-native";
 import React, { useState } from "react";
@@ -14,7 +14,7 @@ import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/Key
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { StackActions } from "@react-navigation/native";
-export default function About({ navigation }) {
+export default function Developers({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -36,40 +36,78 @@ export default function About({ navigation }) {
         </Text>
       </LinearGradient>
       <Text style={[styles.content]}>
-        Welcome to COMSATS Munsalik, the social media app designed exclusively for
-        COMSATS students!{"\n"}{"\n"}
-        This app is an initiative of ILO (Industrial Liaison Office).{"\n"}
-        The ILO serves as a bridge between the academic community and industry. 
-        It helps collaboration, partnerships, and linkages between the university and various industrial sectors{"\n"}
-        Email: sajid@cuiatd.edu.pk
+        We understand that university can be a challenging and sometimes
+        overwhelming experience, which is why we created COMSATS Munsalik as a
+        way to support and empower students.{"\n"}
+        {"\n"}Thank you for choosing COMSATS Munsalik as your go-to social media
+        app for university. We are proud to be part of your journey, and we look
+        forward to helping you make the most of your university experience!
+        {"\n"}
+        {"\n"}
+        Note: If you face any problem/error, share the error description and
+        screenshots.{"\n"}WhatsApp:(+92 340-6394589){"\n"}
       </Text>
-      <Text style={[styles.bold]}>All rights reserved ILO, CUI, Abbottabad{"\n"}</Text>
-      <Text style={[styles.bold]}>ILO Team</Text>
+      <Text style={[styles.bold]}>Developed By</Text>
       <View style={[styles.group]}>
-        <View style={styles.imageContainer}>
+        <TouchableOpacity
+          style={styles.imageContainer}
+          onPress={() => {
+            Linking.openURL("https://www.ansarjavaid.com/");
+          }}
+        >
           <Text style={{ fontFamily: "kumbh-ExtraBold", marginBottom: 5 }}>
-            Mr. Sajid Naeem
+            Ansar
           </Text>
           <Image
-            source={require("../../assets/incharge.jpg")}
+            source={require("../../assets/ansar.jpg")}
             style={styles.image}
           />
-          <Text style={{ fontFamily: "kumbh-Regular", marginTop: 10 }}>
-            Additional Registrar
+          <Text
+            style={{ fontFamily: "kumbh-Regular", marginTop: 10, fontSize: 10 }}
+          >
+            Software Architect
           </Text>
-        </View>
-        <View style={styles.imageContainer}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.imageContainer}
+          onPress={() => {
+            Linking.openURL(
+              "https://www.linkedin.com/in/rabbaniyeh-neakakhtar/"
+            );
+          }}
+        >
           <Text style={{ fontFamily: "kumbh-ExtraBold", marginBottom: 5 }}>
-            Mr. Asim
+            Rabbaniyeh
           </Text>
           <Image
-            source={require("../../assets/ldc.jpg")}
+            source={require("../../assets/Rabi.jpg")}
             style={styles.image}
           />
-          <Text style={{ fontFamily: "kumbh-Regular", marginTop: 10 }}>
-            LDC
+          <Text
+            style={{ fontFamily: "kumbh-Regular", marginTop: 10, fontSize: 10 }}
+          >
+            Frontend Developer
           </Text>
-        </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.imageContainer}
+          onPress={() => {
+            Linking.openURL("https://www.linkedin.com/in/themalikshow/");
+          }}
+        >
+          <Text style={{ fontFamily: "kumbh-ExtraBold", marginBottom: 5 }}>
+            Hadi
+          </Text>
+          <Image
+            source={require("../../assets/Hadi.jpg")}
+            style={styles.image}
+          />
+          <Text
+            style={{ fontFamily: "kumbh-Regular", marginTop: 10, fontSize: 10 }}
+          >
+            UI/UX Designer
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.lowborder}>
         <View style={styles.menuContainer}>
@@ -154,13 +192,13 @@ const styles = StyleSheet.create({
   },
   group: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginHorizontal: 50,
     marginTop: 20,
   },
   image: {
-    width: 90,
-    height: 90,
+    width: 60,
+    height: 60,
   },
   imageContainer: {
     alignItems: "center",
@@ -171,7 +209,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: "#ddd",
     width: "100%",
-    height: 90,
+    height: 70,
     borderTopRightRadius: 28,
     borderTopLeftRadius: 28,
     justifyContent: "space-between",

@@ -33,6 +33,7 @@ import About from "./screens/user/About";
 import ContactUs from "./screens/user/ContactUs";
 import PrivacyPolicy from "./screens/user/PrivacyPolicy";
 import FollowedAccounts from "./screens/user/FollowedAccounts.js";
+import Developers from "./screens/user/Developers.js";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -349,9 +350,9 @@ const AuthenticatedStack = ({ token, role }) => {
             component={About}
           />
           <Stack.Screen
-            options={{ headerShown: false, title: "ContactScreen" }}
-            name="ContactScreen"
-            component={ContactUs}
+            options={{ headerShown: false, title: "DevelopersScreen" }}
+            name="DevelopersScreen"
+            component={Developers}
           />
           <Stack.Screen
             options={{ headerShown: false, title: "PrivacyScreen" }}

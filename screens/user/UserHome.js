@@ -23,6 +23,7 @@ import { Feather } from "@expo/vector-icons";
 import { StackActions } from "@react-navigation/native";
 import { CardFour } from "react-native-card-ui";
 import Swiper from "react-native-swiper";
+import Spinner from "react-native-loading-spinner-overlay/lib";
 
 export default function UserHome({ navigation }) {
   const dispatch = useDispatch();
@@ -31,6 +32,11 @@ export default function UserHome({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
 
+  const [loading, setLoading] = useState(false);
+  const startLoading = () => {
+    setLoading(true);
+  };
+
   // useEffect hook to fetch data when the component mounts
   useEffect(() => {
     getAllPosts(1);
@@ -38,6 +44,8 @@ export default function UserHome({ navigation }) {
 
   // Function to fetch all the posts by the profile from the API
   const getAllPosts = async (page) => {
+    // Validation passed, proceed with API request
+    startLoading();
     // Dispatch the logout action to clear the global state
     dispatch(logout());
     const email = await AsyncStorage.getItem("userEmail");
@@ -60,13 +68,16 @@ export default function UserHome({ navigation }) {
         console.log(response.data);
         if (page === 1) {
           setPosts(response.data);
+          setLoading(false);
         } else {
           setPosts((prevPosts) => [...prevPosts, ...response.data]);
+          setLoading(false);
         }
         setCurrentPage(page);
       }
     } catch (error) {
       console.warn("Here " + error);
+      setLoading(false);
     }
   };
 
@@ -117,6 +128,15 @@ export default function UserHome({ navigation }) {
       </LinearGradient>
 
       <View style={styles.postsContainer}>
+        <Spinner
+          size={"large"}
+          //visibility of Overlay Loading Spinner
+          visible={loading}
+          //Text with the Spinner
+          textContent={"Getting news feed for you!\n Hold Up..."}
+          //Text style of the Spinner Text
+          textStyle={styles.buttonText}
+        ></Spinner>
         <ScrollView
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -127,9 +147,7 @@ export default function UserHome({ navigation }) {
           <Swiper showsButtons={true} showsPagination={false} height={390}>
             <CardFour
               onClicked={() => {}}
-              image={{
-                uri: "https://nmr.cuiatd.edu.pk/gallery/portfolio-14.jpg",
-              }}
+              image={require('../../assets/card-2.jpg')}
               date={"Featured"}
               offText={
                 "Welcome to COMSATS Musalik, a soial media platform to connect students and campus.\nConnect with your favorite societies/clubs & departments to see what they are doing. Keep your self updated. Never miss any update."
@@ -138,9 +156,7 @@ export default function UserHome({ navigation }) {
             />
             <CardFour
               onClicked={() => {}}
-              image={{
-                uri: "https://i0.wp.com/jaamiah.com/wp-content/uploads/2018/11/B3t_JuLCIAIjJVU.jpg",
-              }}
+              image={require('../../assets/bg.png')}
               date={"Featured"}
               offText={
                 "\nNote: App is in test mode, you can expect bugs/errors/slowness & lags.\nIf you experience any error during the use of this app, please share the error details along its screen shots at this number.\nWhatsApp:(+92 340-6394589)"

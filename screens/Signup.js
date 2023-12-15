@@ -71,7 +71,7 @@ export default function Signup({ navigation }) {
       if (response.status === 200) {
         if (response.data.statusCode === 200) {
           setLoading(false);
-          setModelMsg(["Account Created Successfully!", "Continue to login"]);
+          setModelMsg(["Account Created Successfully!", "OK"]);
           setModalVisible(true);
           setTimeout(() => {
             navigation.navigate("Login");
@@ -82,8 +82,8 @@ export default function Signup({ navigation }) {
           setLoading(false);
           console.log(response.data.value);
           setModelMsg([
-            response.data.value.status + " " + response.data.value.message,
-            "Try Again!",
+            response.data.value.message,
+            "OK",
           ]);
           setModalVisible(true);
         }
@@ -93,13 +93,13 @@ export default function Signup({ navigation }) {
       if (error.response && error.response.status === 400) {
         setModelMsg([
           "Please Check your Details!: " + error.response.status,
-          "Try Again!",
+          "OK",
         ]);
       }
       if (error.response && error.response.status === 500) {
         setModelMsg([
           error.response.data.message + " " + error.response.status,
-          "Try Again!",
+          "OK",
         ]);
         console.log(error.response);
       }
@@ -127,7 +127,7 @@ export default function Signup({ navigation }) {
     if (password.length === 0) {
       validationText += "Password is Required\n";
     } else if (!isValidPassword(password)) {
-      validationText += "Invalid Password\n";
+      validationText += "Password must contain both numbers and letters/special characters. e.g:C@t123\n";
     }
 
     return validationText;

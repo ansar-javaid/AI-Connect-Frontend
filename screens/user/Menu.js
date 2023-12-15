@@ -127,10 +127,10 @@ const MenuScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.BoxWrapper}
           onPress={() => {
-            navigation.navigate("ContactScreen");
+            navigation.navigate("DevelopersScreen");
           }}
         >
-          <Text style={styles.boxtextwrapper}>Contact Us</Text>
+          <Text style={styles.boxtextwrapper}>Developers</Text>
           <Image
             source={require("../../assets/right.png")}
             style={styles.iicon2}
