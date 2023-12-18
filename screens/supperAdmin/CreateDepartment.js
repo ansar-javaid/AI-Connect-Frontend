@@ -35,7 +35,7 @@ export default function CreateDepartment({ navigation }) {
   //  Api Handler function
   const Handler = async () => {
     // Api Payload
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem("token");
     await axios(
       // make a POST request using axios()
       {
@@ -45,7 +45,7 @@ export default function CreateDepartment({ navigation }) {
           // set the request headers
           accept: "*/*", // set the Accept header to text/plain
           "Content-Type": "application/json", // set the Content-Type header to application/json
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         data: {
           // set the request payload
@@ -56,14 +56,24 @@ export default function CreateDepartment({ navigation }) {
       startLoading() // A function that starts a loading animation to indicate that the login process is in progress
     )
       .then((response) => {
-        // If the response status is 200 OK
-        setLoading(false); // Stop the loading animation
-        Dialog.show({
-          type: ALERT_TYPE.SUCCESS,
-          title: "Created Successfully",
-          textBody: "",
-          button: "Close",
-        });
+        // If the response status is 201 Created
+        if (response.data.statusCode == 201) {
+          setLoading(false); // Stop the loading animation
+          Dialog.show({
+            type: ALERT_TYPE.SUCCESS,
+            title: "Created Successfully",
+            textBody: "",
+            button: "Close",
+          });
+        } else if (response.data.statusCode == 400) {
+          setLoading(false); // Stop the loading animation
+          Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: "Already Exists!",
+            textBody: "Cannot Create Duplicate",
+            button: "Close",
+          });
+        }
       })
       .catch((error) => {
         // Stop Loading
@@ -135,8 +145,7 @@ export default function CreateDepartment({ navigation }) {
                 alignItems: "center",
               }}
             >
-       
-              <Text style={{fontFamily:'kumbh-Regular'}}></Text>
+              <Text style={{ fontFamily: "kumbh-Regular" }}></Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
@@ -149,7 +158,7 @@ export default function CreateDepartment({ navigation }) {
               }}
             >
               <AntDesign name="back" size={23} color="black" />
-              <Text style={{fontFamily:'kumbh-Regular'}}>Back</Text>
+              <Text style={{ fontFamily: "kumbh-Regular" }}>Back</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -174,7 +183,7 @@ const styles = StyleSheet.create({
   },
   mainHeading: {
     fontSize: 27,
-    fontFamily:'kumbh-Bold',
+    fontFamily: "kumbh-Bold",
     textAlign: "center",
     marginVertical: 15,
   },
@@ -195,7 +204,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginVertical: 7,
     color: "#333",
-    fontFamily:'kumbh-Regular'
+    fontFamily: "kumbh-Regular",
   },
   buttonContainer: {
     alignItems: "center",
@@ -209,7 +218,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 130,
     paddingVertical: 15,
     color: "#fff",
-    fontFamily:'kumbh-Regular'
+    fontFamily: "kumbh-Regular",
   },
   lowborder: {
     flexDirection: "row",

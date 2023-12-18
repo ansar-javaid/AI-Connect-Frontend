@@ -93,6 +93,7 @@ export default function AdminHome({ navigation }) {
       if (response.status === 200) {
         // Store the fetched posts in the state variable
         setPosts(response.data);
+        console.log(response.data);
       }
     } catch (error) {
       console.error(error.response.status);
@@ -177,6 +178,7 @@ export default function AdminHome({ navigation }) {
                     file={post.filePath}
                     gotoDetails={gotoDetailsComp}
                     profileImage={profileImage}
+                    postId={post.postID}
                   />
                 </View>
               );

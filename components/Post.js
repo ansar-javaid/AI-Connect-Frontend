@@ -1,24 +1,30 @@
 // Importing React and several modules from React Native
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
-  FlatList,
+  Alert,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 // Importing a custom component called ImageSlider from a module called react-native-image-slider-banner
 import { ImageSlider } from "react-native-image-slider-banner";
+import { Feather, FontAwesome5 } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BASE_URL } from "../api/config";
+import axios from "axios";
+import Spinner from "react-native-loading-spinner-overlay";
+import {
+  ALERT_TYPE,
+  Dialog,
+  AlertNotificationRoot,
+  Toast,
+} from "react-native-alert-notification";
+import { useNavigation } from "@react-navigation/native";
 
 // Importing the moment library to format dates and times
 import moment from "moment/moment";
-
-// Importing the images used for social media stats
-const share = require("../assets/share.png");
-const like = require("../assets/like.png");
-const view = require("../assets/view.png");
 
 // Defining the Post component
 export default function Post({
@@ -31,12 +37,90 @@ export default function Post({
   likes,
   gotoDetails,
   profileImage,
+  postId,
 }) {
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+
+  // Loading Animation
+  const startLoading = () => {
+    // define a function to start the loading spinner animation
+    setLoading(true);
+  };
+
   // Defining a callback function that invokes the gotoDetails function when the user clicks on the post
   const gotoDetailsComponent = useCallback(() => {
     console.log("clicked");
-    gotoDetails({ departmentName, time, file, text, views, shares, likes, });
+    gotoDetails({ departmentName, time, file, text, views, shares, likes });
   }, [departmentName, time, file, text, views, shares, likes, gotoDetails]);
+
+  const deletePostApi = async (postId) => {
+    //Start loading Spinner
+    startLoading();
+
+    try {
+      const token = await AsyncStorage.getItem("token");
+      const response = await axios.delete(
+        `${BASE_URL}/posts/DeletePost?postId=${postId}`,
+        {
+          headers: {
+            accept: "*/*",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.statusCode === 200) {
+        //Stop Spinner and Show Message Alert
+        setLoading(false);
+        Dialog.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: "Deleted Successfully",
+          textBody: "",
+          button: "Close",
+          //Re-Navigate to Admin Home
+          onPressButton: () =>
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "Home" }],
+            }),
+        });
+        console.log(response.data);
+      } else if (response.data.statusCode === 404) {
+        //Stop Spinner and Show Message Alert
+        setLoading(false);
+        Dialog.show({
+          type: ALERT_TYPE.DANGER,
+          title: "Something went wrong!",
+          textBody: "Cant't Delete the Post.\nPlease try again!",
+          button: "Close",
+        });
+        console.log("Post with Associated Id Not Found!");
+        console.log(response.data);
+      } else {
+        //Stop Spinner and Show Message Alert
+        setLoading(false);
+        Dialog.show({
+          type: ALERT_TYPE.DANGER,
+          title: "Something went wrong!",
+          textBody: "Cant't Delete the Post.\nPlease try again!",
+          button: "Close",
+        });
+        console.error("Failed to delete post");
+        // Optionally, you can log the response data for debugging
+        console.error(response.data);
+      }
+    } catch (error) {
+      //Stop Spinner and Show Message Alert
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: "Something went wrong!",
+        textBody: "Cant't Delete the Post.\nPlease try again!",
+        button: "Close",
+      });
+      console.error("An error occurred while deleting the post", error);
+    }
+  };
 
   // Defining a memoized function that returns different content depending on whether the post has an image, text, or both
   const postContent = React.useMemo(() => {
@@ -68,6 +152,15 @@ export default function Post({
   return (
     <TouchableOpacity onPress={gotoDetailsComponent}>
       <View>
+        <Spinner
+          size={"large"}
+          //visibility of Overlay Loading Spinner
+          visible={loading}
+          //Text with the Spinner
+          textContent={"Deleting..."}
+          //Text style of the Spinner Text
+          textStyle={styles.spinnerTextStyle}
+        ></Spinner>
         <View style={styles.headingContainer}>
           <View style={styles.departmentImgContainer}>
             <Image
@@ -88,21 +181,43 @@ export default function Post({
         <View style={styles.statesContainer}>
           <TouchableOpacity>
             <Text>
-              {views} <Image source={view} />
+              {views} <FontAwesome5 name="heart" size={20} color="#4B277E" />
             </Text>
           </TouchableOpacity>
           <TouchableOpacity>
             <Text>
-              {shares} <Image source={share} />
+              {shares} <FontAwesome5 name="edit" size={20} color="#4B277E" />
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              Alert.alert(
+                "Delete this Post?",
+                "Are you sure you want to Delete this post?",
+                [
+                  // The "Yes" button
+                  {
+                    text: "Yes",
+                    onPress: () => {
+                      deletePostApi(postId);
+                    },
+                  },
+                  // The "No" button
+                  // Does nothing but dismiss the dialog when tapped
+                  {
+                    text: "No",
+                  },
+                ]
+              )
+            }
+          >
             <Text>
-              {likes} <Image source={like} />
+              {likes} <Feather name="trash" size={20} color="#4B277E" />
             </Text>
           </TouchableOpacity>
         </View>
       </View>
+      <AlertNotificationRoot></AlertNotificationRoot>
     </TouchableOpacity>
   );
 }
@@ -147,11 +262,11 @@ const styles = StyleSheet.create({
   },
   departmentName: {
     fontSize: 16,
-    fontFamily:'kumbh-Bold'
+    fontFamily: "kumbh-Bold",
   },
   time: {
     fontSize: 11,
-    fontFamily:'kumbh-Regular'
+    fontFamily: "kumbh-Regular",
   },
   imageContainer: {
     maxHeight: 300,
@@ -169,7 +284,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 15,
     paddingHorizontal: 15,
-    fontFamily:'kumbh-Regular',
+    fontFamily: "kumbh-Regular",
     fontSize: 16,
   },
   statesContainer: {

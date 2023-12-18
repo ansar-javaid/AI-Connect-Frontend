@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  Linking
+  Linking,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -81,43 +81,51 @@ export default function HomescreenDetails({ navigation, route }) {
 }
 
 function PostImages({ postDetail }) {
-    console.log(postDetail);
-    const [visible, setIsVisible] = useState(false);
+  console.log(postDetail);
+  const [visible, setIsVisible] = useState(false);
 
-    const renderTextWithLinks = (text) => {
-      const textArray = text.split(/\s+/); // Split by spaces
-      return textArray.map((word, index) => {
-        if (word.startsWith('http://') || word.startsWith('https://')) {
-          return (
-            <Text key={index}>
-              {'\n'}
-              <Text style={{ color: 'blue' }} onPress={() => handleLinkPress(word)}>
-                {word}
-              </Text>
-              {'\n'}
+  const renderTextWithLinks = (text) => {
+    const textArray = text.split(/\s+/); // Split by spaces
+    return textArray.map((word, index) => {
+      if (word.startsWith("http://") || word.startsWith("https://")) {
+        return (
+          <Text key={index}>
+            {"\n"}
+            <Text
+              style={{ color: "blue" }}
+              onPress={() => handleLinkPress(word)}
+            >
+              {word}
             </Text>
-          );
-        }
-        return <Text key={index}>{word} </Text>;
-      });
-    };
-  
-    const handleLinkPress = (url) => {
-      Linking.openURL(url);
-    };
-  
-    // Update the path key to uri in the file array
-    if (Array.isArray(postDetail.file)) {
-      const updatedFileArray = postDetail.file.map(img => {
-        return { uri: img.path };
-      });
-  
-      console.log(updatedFileArray);
-  
+            {"\n"}
+          </Text>
+        );
+      }
+      return <Text key={index}>{word} </Text>;
+    });
+  };
+
+  const handleLinkPress = (url) => {
+    Linking.openURL(url);
+  };
+
+  // Update the path key to uri in the file array
+  if (Array.isArray(postDetail.file)) {
+    const updatedFileArray = postDetail.file.map((img) => {
+      return { uri: img.path };
+    });
+
+    // console.log(updatedFileArray);
+    if (postDetail.file.length > 0) {
       return updatedFileArray.map((img, index) => {
+        console.log(">0");
         return (
           <View style={styles.imgs} key={index}>
-            {index === 0 && <Text style={styles.postText}>{renderTextWithLinks(postDetail.text)}</Text>}
+            {index === 0 && (
+              <Text style={styles.postText}>
+                {renderTextWithLinks(postDetail.text)}
+              </Text>
+            )}
             <TouchableOpacity onPress={() => setIsVisible(true)}>
               <Image
                 source={{ uri: img.uri, width: "100%", height: 350 }}
@@ -133,7 +141,7 @@ function PostImages({ postDetail }) {
             <View style={styles.statesContainer}>
               <TouchableOpacity>
                 <Text>
-                {postDetail?.likes} <Image source={like} />
+                  {postDetail?.likes} <Image source={like} />
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity>
@@ -145,53 +153,59 @@ function PostImages({ postDetail }) {
           </View>
         );
       });
-    } else if (!postDetail.file) {
-      return (
-        <View style={styles.imgs}>
-          <Text style={styles.postText}>{postDetail?.text}</Text>
-          <View style={styles.statesContainer}>
-            <TouchableOpacity>
-              <Text>
-                {postDetail?.views} <Image source={view} />
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>
-                {postDetail?.shares} <Image source={share} />
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>
-                {postDetail?.likes} <Image source={like} />
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.imgs}>
-          <Text style={styles.postText}>{postDetail.text}</Text>
-          <Image source={postDetail.file[0]} />
-          <View style={styles.statesContainer}>
-            <TouchableOpacity>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>
-                {postDetail?.shares} <Image source={share} />
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text>
-                {postDetail?.likes} <Image source={like} />
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
     }
   }
-  
+  if (postDetail.file.length === 0) {
+    console.log("===0");
+    return (
+      <View style={styles.imgs}>
+        <Text style={styles.postText}>
+          {renderTextWithLinks(postDetail.text)}
+        </Text>
+        <View style={styles.statesContainer}>
+          <TouchableOpacity>
+            <Text>
+              {postDetail?.views} <Image source={view} />
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>
+              {postDetail?.shares} <Image source={share} />
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>
+              {postDetail?.likes} <Image source={like} />
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  } else {
+    console.log("else")
+    return (
+      <View style={styles.imgs}>
+        <Text style={styles.postText}>
+          {renderTextWithLinks(postDetail.text)}
+        </Text>
+        <Image source={postDetail.file[0]} />
+        <View style={styles.statesContainer}>
+          <TouchableOpacity></TouchableOpacity>
+          <TouchableOpacity>
+            <Text>
+              {postDetail?.shares} <Image source={share} />
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>
+              {postDetail?.likes} <Image source={like} />
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
