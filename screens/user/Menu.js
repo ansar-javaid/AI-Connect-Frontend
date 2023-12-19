@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image,Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import colors from "../../assets/colors/colors";
 import { StatusBar } from "expo-status-bar";
@@ -195,7 +195,24 @@ const MenuScreen = ({ navigation }) => {
               justifyContent: "center",
               alignItems: "center",
             }}
-            onPress={() => Logout()}
+            onPress={() => Alert.alert(
+              "Logout?",
+              "All of your saved items in this app will be lost. In Case you Logout.",
+              [
+                // The "Yes" button
+                {
+                  text: "Yes",
+                  onPress: () => {
+                    Logout();
+                  },
+                },
+                // The "No" button
+                // Does nothing but dismiss the dialog when tapped
+                {
+                  text: "No",
+                },
+              ]
+            )}
           >
             <AntDesign name="logout" size={23} color="black" />
             <Text style={{ fontFamily: "kumbh-Regular" }}>Logout</Text>

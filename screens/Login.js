@@ -136,7 +136,7 @@ export default function Login({ navigation }) {
     }
     await AsyncStorage.getItem("role")
       .then((role) => {
-        setModelMsg(["Login Successful!: ", "Continue"]); // Set the message for the popup dialog to inform the user that the login was successful
+        setModelMsg(["Login Successful!", "Continue"]); // Set the message for the popup dialog to inform the user that the login was successful
         if (role == "User") {
           //signalRService.startConnection(token);
           setTimeout(() => {

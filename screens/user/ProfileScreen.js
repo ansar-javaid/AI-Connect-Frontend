@@ -154,14 +154,15 @@ export default function ProfileScreen1({ route, navigation }) {
           Toast.show({
             type: ALERT_TYPE.SUCCESS,
             title: "Followed",
-            textBody: "Following",
+            textBody: "You will start receiving notification from this page!",
           });
           setButtonValue("Following");
         } else if (data.value.status === false) {
           Toast.show({
             type: ALERT_TYPE.WARNING,
             title: "Un Followed",
-            textBody: "Page Unfollowed",
+            textBody:
+              "You wont receive any notification further from this page!",
           });
 
           setButtonValue("Follow");
