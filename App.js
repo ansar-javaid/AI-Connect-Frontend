@@ -48,31 +48,31 @@ Notifications.setNotificationHandler({
   }),
 });
 
-
 const registerForPushNotificationsAsync = async () => {
   try {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
 
-    if (existingStatus !== 'granted') {
+    if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
 
-    if (finalStatus !== 'granted') {
-      console.error('Failed to get push token for push notification!');
+    if (finalStatus !== "granted") {
+      console.error("Failed to get push token for push notification!");
       return null;
     }
 
     const token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log('Expo Push Token:', token);
+    console.log("Expo Push Token:", token);
 
     // Send the token to your server
     //sendTokenToServer(token);
 
     return token;
   } catch (error) {
-    console.error('Error getting Expo Push Token:', error);
+    console.error("Error getting Expo Push Token:", error);
     return null;
   }
 };
@@ -105,11 +105,13 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationReceivedListener((notification) => {
-      console.log('Notification received:', notification);
-      // Handle the notification as needed
-      // You can update state, show an alert, etc.
-    });
+    const subscription = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log("Notification received:", notification);
+        // Handle the notification as needed
+        // You can update state, show an alert, etc.
+      }
+    );
 
     return () => {
       subscription.remove();
@@ -470,6 +472,11 @@ const LoginStack = () => {
           options={{ headerShown: false, title: "ProfileScreen" }}
           name="ProfileScreen"
           component={ProfileScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false, title: "DevelopersScreen" }}
+          name="DevelopersScreen"
+          component={Developers}
         />
 
         <Stack.Screen

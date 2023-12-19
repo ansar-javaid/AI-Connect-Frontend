@@ -15,7 +15,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CardNine } from "react-native-card-ui";
+
+//TODO:This is a node module used as a custom module due to custom requirements
+import { CardNine } from "../../CustomModules/react-native-card-ui";
 
 export default function Search() {
   const [searchText, setSearchText] = useState("");

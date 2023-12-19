@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   RefreshControl,
+  Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -21,7 +22,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { StackActions } from "@react-navigation/native";
-import { CardFour } from "react-native-card-ui";
+//TODO:This is a node module used as a custom module due to custom requirements, 
+import { CardFour } from "../../CustomModules/react-native-card-ui";
 import Swiper from "react-native-swiper";
 import Spinner from "react-native-loading-spinner-overlay/lib";
 
@@ -41,6 +43,20 @@ export default function UserHome({ navigation }) {
   useEffect(() => {
     getAllPosts(1);
   }, []);
+
+  useEffect(() => {
+    Alert.alert(
+      "Important!",
+      "You will experience some lagging issues in BETA version.\nThese will be resolved in the next updates.",
+      [
+        // The "Yes" button
+        {
+          text: "Continue!",
+        },
+      ]
+    )
+  }, []);
+
 
   // Function to fetch all the posts by the profile from the API
   const getAllPosts = async (page) => {
@@ -147,7 +163,7 @@ export default function UserHome({ navigation }) {
           <Swiper showsButtons={true} showsPagination={false} height={390}>
             <CardFour
               onClicked={() => {}}
-              image={require('../../assets/card-2.jpg')}
+              image={require('../../assets/card-1.jpeg')}
               date={"Featured"}
               offText={
                 "Welcome to COMSATS Musalik, a soial media platform to connect students and campus.\nConnect with your favorite societies/clubs & departments to see what they are doing. Keep your self updated. Never miss any update."
@@ -156,7 +172,7 @@ export default function UserHome({ navigation }) {
             />
             <CardFour
               onClicked={() => {}}
-              image={require('../../assets/bg.png')}
+              image={require('../../assets/card-2.jpg')}
               date={"Featured"}
               offText={
                 "\nNote: App is in test mode, you can expect bugs/errors/slowness & lags.\nIf you experience any error during the use of this app, please share the error details along its screen shots at this number.\nWhatsApp:(+92 340-6394589)"

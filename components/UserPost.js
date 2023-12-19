@@ -161,7 +161,7 @@ export default function UserPost({
           <Text style={styles.postText}>{text}</Text>
           <ImageSlider
             data={file.map((url) => ({ img: url.path }))}
-            autoPlay={false}
+            autoPlay={true}
             closeIconColor="#fff"
             caroselImageStyle={{ resizeMode: "cover" }}
             preview={true}

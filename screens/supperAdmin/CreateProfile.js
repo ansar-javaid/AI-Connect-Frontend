@@ -48,6 +48,19 @@ export default function CreateProfile({ navigation }) {
     getLocalData();
   }, []);
 
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== "web") {
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+          alert("Sorry, we need media library permissions to make this work!");
+        }
+      }
+    })();
+  }, []);
+
   // useFocusEffect hook to fetch data whenever the component is in focus
   useFocusEffect(
     React.useCallback(() => {

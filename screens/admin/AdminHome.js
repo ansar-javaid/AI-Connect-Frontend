@@ -8,6 +8,7 @@ import {
   Modal,
   Pressable,
   RefreshControl,
+  Alert
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -58,6 +59,19 @@ export default function AdminHome({ navigation }) {
   // useEffect hook to fetch data when the component mounts
   useEffect(() => {
     getLocalData();
+  }, []);
+
+  useEffect(() => {
+    Alert.alert(
+      "Important!",
+      "You will experience some lagging issues in BETA version.\nThese will be resolved in the next updates.\nReport any error with screen shots at: WhatsApp (+92 340-6394589)",
+      [
+        // The "Yes" button
+        {
+          text: "Continue!",
+        },
+      ]
+    )
   }, []);
 
   // Function to fetch data from local storage and APIs
