@@ -9,8 +9,7 @@ import {
   ScrollView,
   Modal,
   Pressable,
-  Animated, // for creating animations
-  Easing, // for setting easing functions for animations
+  ToastAndroid,
 } from "react-native";
 import { React, useEffect, useState } from "react";
 import axios from "axios"; // for making HTTP requests
@@ -25,9 +24,6 @@ import { Audio } from "expo-av";
 import signalRService from "../notifications/SignalRService";
 
 export default function Login({ navigation }) {
- 
-
-
   // Some Use States
   const [username, setUsername] = useState(""); // initialize a state variable for the username input
   const [password, setPassword] = useState(""); // initialize a state variable for the password input
@@ -83,22 +79,16 @@ export default function Login({ navigation }) {
           ); // Save the user's role to AsyncStorage after decoding it from the JWT token
           AsyncStorage.setItem(
             "profileId",
-            jwtDecode(response.data.value.token)[
-              "Profile"
-            ]
+            jwtDecode(response.data.value.token)["Profile"]
           ); // Save the user's profile ID to AsyncStorage after decoding it from the JWT token
           AsyncStorage.setItem(
             "userEmail",
-            jwtDecode(response.data.value.token)[
-              "Email"
-            ]
+            jwtDecode(response.data.value.token)["Email"]
           ); // Save the user's User Email to AsyncStorage after decoding it from the JWT token
 
           AsyncStorage.setItem(
             "userName",
-            jwtDecode(response.data.value.token)[
-              "Name"
-            ]
+            jwtDecode(response.data.value.token)["Name"]
           );
           ScreenNavigator();
 
@@ -121,10 +111,7 @@ export default function Login({ navigation }) {
         // Stop Loading
         setLoading(false); // Stop the loading animation
         console.log(error);
-        setModelMsg([
-          "Login failed! Invalid email & password!",
-          "Try Again!",
-        ]); // Set the message for the popup dialog to inform the user that the login was unsuccessful
+        setModelMsg(["Login failed! Invalid email & password!", "Try Again!"]); // Set the message for the popup dialog to inform the user that the login was unsuccessful
         MyModal("", "", modalVisible, setModalVisible(true)); // Show a popup dialog with the specified message
       });
   };
@@ -186,7 +173,7 @@ export default function Login({ navigation }) {
         source={require("../assets/bg.png")}
       ></Image>
       <Image
-        style={styles.logoImage }
+        style={styles.logoImage}
         source={require("../assets/comsatslogo.png")}
       />
       <Text style={[styles.logoText, styles.Urdu]}>کامسیٹس منسلک</Text>
@@ -243,9 +230,7 @@ export default function Login({ navigation }) {
           </View>
           <Text
             style={styles.password}
-            onPress={() => {
-              
-            }}
+            onPress={() => ToastAndroid.show("Coming Soon!", ToastAndroid.LONG)}
           >
             FORGOT PASSWORD
           </Text>
@@ -399,7 +384,7 @@ const styles = StyleSheet.create({
   },
   Urdu: {
     fontFamily: "Urdu-Font",
-},
+  },
   topImage: {
     top: 0,
     minHeight: "42%",

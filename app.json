@@ -1,7 +1,8 @@
 {
   "expo": {
     "slug": "comsats-munsalik",
-    "name": "Munsalik",
+    "name": "COMSATS Munsalik",
+    "version":"1.0.0",
     "orientation": "portrait",
     "icon": "./assets/app.png",
     "splash": {
@@ -14,11 +15,13 @@
         "foregroundImage": "./assets/app.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.ansar.cu.munsalik"
+      "package": "com.ansar.munsalik",
+      "versionCode":"1",
+      "googleServicesFile": "./google-services.json"
     },
     "extra": {
       "eas": {
-        "projectId": "6ba4b2b7-7f7e-4f75-8c78-396d654e5529"
+        "projectId": "a1f878b2-eb76-4b4e-b3e2-bca10bd711b1"
       }
     }
   }

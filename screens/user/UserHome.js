@@ -1,4 +1,5 @@
 import {
+  Image,
   View,
   Text,
   StyleSheet,
@@ -6,9 +7,10 @@ import {
   TextInput,
   ScrollView,
   RefreshControl,
-  Alert
+  Alert,
+  ToastAndroid,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/KeyboardAvoidingView";
 import { BASE_URL } from "../../api/config";
@@ -22,10 +24,13 @@ import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { StackActions } from "@react-navigation/native";
-//TODO:This is a node module used as a custom module due to custom requirements, 
+//TODO:This is a node module used as a custom module due to custom requirements,
 import { CardFour } from "../../CustomModules/react-native-card-ui";
+
 import Swiper from "react-native-swiper";
 import Spinner from "react-native-loading-spinner-overlay/lib";
+
+import * as Notifications from "expo-notifications";
 
 export default function UserHome({ navigation }) {
   const dispatch = useDispatch();
@@ -33,6 +38,7 @@ export default function UserHome({ navigation }) {
   // Refresh Posts
   const [refreshing, setRefreshing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const scrollViewRef = useRef();
 
   const [loading, setLoading] = useState(false);
   const startLoading = () => {
@@ -42,6 +48,11 @@ export default function UserHome({ navigation }) {
   // useEffect hook to fetch data when the component mounts
   useEffect(() => {
     getAllPosts(1);
+  }, []);
+
+  //Expo Notification
+  useEffect(() => {
+    registerForPushNotificationsAsync();
   }, []);
 
   useEffect(() => {
@@ -54,9 +65,92 @@ export default function UserHome({ navigation }) {
           text: "Continue!",
         },
       ]
-    )
+    );
   }, []);
 
+  // PreloadImages function to prefetch images
+  const preloadImages = () => {
+    posts.forEach((post) => {
+      Image.prefetch(post.coverPicture.profileImage);
+      //console.log(post.coverPicture);
+      if (post.filePath) {
+        post.filePath.forEach((url) => {
+          Image.prefetch(url.path);
+          //console.log(url);
+        });
+      }
+    });
+  };
+
+  // Call preloadImages when the component mounts or posts change
+  useEffect(() => {
+    preloadImages();
+  }, [posts]);
+
+  //Expo Notification Request
+  const registerForPushNotificationsAsync = async () => {
+    try {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+
+      try {
+        let finalStatus = existingStatus;
+
+        if (existingStatus !== "granted") {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+        if (finalStatus !== "granted") {
+          alert("Failed to get push token for push notification!");
+          return;
+        }
+      } catch (error) {
+        // ToastAndroid.show("Error Asking Permission", ToastAndroid.LONG);
+        // ToastAndroid.show(error, ToastAndroid.LONG);
+      }
+
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log("Expo Push Token:", token);
+
+      // Send the token to your server
+      sendTokenToServer(token);
+
+      return token;
+    } catch (error) {
+      console.error("Error getting Expo Push Token:", error);
+      return null;
+    }
+  };
+
+  const sendTokenToServer = async (expoToken) => {
+    // Retrieve the user's email and token from AsyncStorage
+    const email = await AsyncStorage.getItem("userEmail");
+    const token = await AsyncStorage.getItem("token");
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/notifications/SaveExpoToken`,
+        {
+          email: email,
+          token: expoToken,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Token sent successfully:", response.data);
+      ToastAndroid.show("🎉", ToastAndroid.LONG);
+      // Handle the server response as needed
+    } catch (error) {
+      console.error("Error sending token to server:", error);
+      // Handle errors
+    }
+  };
 
   // Function to fetch all the posts by the profile from the API
   const getAllPosts = async (page) => {
@@ -117,6 +211,13 @@ export default function UserHome({ navigation }) {
     getAllPosts(1).then(() => setRefreshing(false));
   }, []);
 
+  // Take to the top of list
+  const handleHomePress = () => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -154,6 +255,7 @@ export default function UserHome({ navigation }) {
           textStyle={styles.buttonText}
         ></Spinner>
         <ScrollView
+          ref={scrollViewRef}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
@@ -163,7 +265,7 @@ export default function UserHome({ navigation }) {
           <Swiper showsButtons={true} showsPagination={false} height={390}>
             <CardFour
               onClicked={() => {}}
-              image={require('../../assets/card-1.jpeg')}
+              image={require("../../assets/card-1.jpeg")}
               date={"Featured"}
               offText={
                 "Welcome to COMSATS Musalik, a soial media platform to connect students and campus.\nConnect with your favorite societies/clubs & departments to see what they are doing. Keep your self updated. Never miss any update."
@@ -172,7 +274,7 @@ export default function UserHome({ navigation }) {
             />
             <CardFour
               onClicked={() => {}}
-              image={require('../../assets/card-2.jpg')}
+              image={require("../../assets/card-2.jpg")}
               date={"Featured"}
               offText={
                 "\nNote: App is in test mode, you can expect bugs/errors/slowness & lags.\nIf you experience any error during the use of this app, please share the error details along its screen shots at this number.\nWhatsApp:(+92 340-6394589)"
@@ -219,7 +321,7 @@ export default function UserHome({ navigation }) {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() => navigation.navigate("UserHome")}
+              onPress={handleHomePress}
             >
               <AntDesign name="home" size={23} color="black" />
               <Text style={styles.regular}>Home</Text>

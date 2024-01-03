@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View, Image,Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image,Alert,ToastAndroid } from "react-native";
 import React, { useEffect, useState } from "react";
 import colors from "../../assets/colors/colors";
 import { StatusBar } from "expo-status-bar";
@@ -83,7 +83,7 @@ const MenuScreen = ({ navigation }) => {
             style={styles.iicon2}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.BoxWrapper}>
+        <TouchableOpacity style={styles.BoxWrapper} onPress={()=>ToastAndroid.show("Coming Soon!", ToastAndroid.LONG)}>
           <Text style={styles.boxtextwrapper}>Semester Schedule</Text>
           <Image
             source={require("../../assets/right.png")}
@@ -91,7 +91,7 @@ const MenuScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity style={styles.BoxWrapper} onPress={() => {}}>
+      <TouchableOpacity style={styles.BoxWrapper} onPress={()=>ToastAndroid.show("Coming Soon!", ToastAndroid.LONG)}>
         <Text style={styles.boxtextwrapper}>Change Password</Text>
         <Image
           source={require("../../assets/right.png")}

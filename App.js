@@ -37,8 +37,12 @@ import Developers from "./screens/user/Developers.js";
 import * as Font from "expo-font";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 import NetInfo from "@react-native-community/netinfo";
 import * as Notifications from "expo-notifications";
+import moment from "moment/moment";
+import axios from "axios";
+import { BASE_URL } from "./api/config.js";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -48,75 +52,121 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const registerForPushNotificationsAsync = async () => {
-  try {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-
-    if (finalStatus !== "granted") {
-      console.error("Failed to get push token for push notification!");
-      return null;
-    }
-
-    const token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log("Expo Push Token:", token);
-
-    // Send the token to your server
-    //sendTokenToServer(token);
-
-    return token;
-  } catch (error) {
-    console.error("Error getting Expo Push Token:", error);
-    return null;
-  }
-};
-
-const sendTokenToServer = (token) => {
-  // Implement your logic to send the token to your server
-  // Use a fetch or any other method to send the token
-  // Example:
-  // fetch('YOUR_SERVER_ENDPOINT', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({ token }),
-  // });
-};
-
 export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState("");
   const [role, setRole] = useState("");
+  const [loadImages, setLoadImages] = useState([]);
+
+  //Call Api to load all images
+  useEffect(() => {
+    console.log("Images Api");
+    getAllImages();
+  }, []);
+
+  // Call preloadImages when the component mounts or posts change
+  // Call preloadImages only if loadImages is available
+  useEffect(() => {
+    console.log("Images");
+    if (loadImages) {
+      preloadImages();
+    }
+  }, [loadImages]);
 
   useEffect(() => {
     checkAuthentication();
   }, []);
 
-  useEffect(() => {
-    registerForPushNotificationsAsync();
-  }, []);
+  // Function to fetch all the posts by the profile from the API
+  const getAllImages = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/posts/LoadAllImages`, {
+        headers: {
+          accept: "*/*",
+        },
+      });
+      if (response.status === 200) {
+        console.log(response.data.value);
+        setLoadImages(response.data.value);
+      }
+    } catch (error) {
+      console.warn(error);
+    }
+  };
+
+  // PreloadImages function to prefetch images
+  const preloadImages = () => {
+    if (loadImages && loadImages.files) {
+      loadImages.files.forEach((file) => {
+        console.log("Post Images:" + file);
+      });
+    }
+
+    if (loadImages && loadImages.profileImages) {
+      loadImages.profileImages.forEach((profileImage) => {
+        console.log("Profile Images:" + profileImage);
+      });
+    }
+  };
 
   useEffect(() => {
-    const subscription = Notifications.addNotificationReceivedListener(
-      (notification) => {
-        console.log("Notification received:", notification);
-        // Handle the notification as needed
-        // You can update state, show an alert, etc.
-      }
-    );
+    // Listener for notifications received when the app is in the background or closed
+    const backgroundSubscription =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        if (
+          response &&
+          response.notification &&
+          response.notification.request
+        ) {
+          console.log("Background");
+          const { title, body } = response.notification.request.content || {};
+          saveItemToLocalStorage(title, body);
+        }
+      });
+
+    // Listener for notifications received when the app is in the foreground
+    const foregroundSubscription =
+      Notifications.addNotificationReceivedListener((notification) => {
+        if (notification && notification.request) {
+          console.log("opened");
+          const { title, body } = notification.request.content || {};
+          saveItemToLocalStorage(title, body);
+        }
+      });
 
     return () => {
-      subscription.remove();
+      backgroundSubscription.remove();
+      foregroundSubscription.remove();
     };
   }, []);
+
+  const saveItemToLocalStorage = async (departmentName, text) => {
+    // Get the current time using Moment
+    const currentTime = moment().format();
+    try {
+      // Fetch existing saved items from local storage
+      const savedItems = await AsyncStorage.getItem("savedNotifications");
+      const parsedSavedItems = JSON.parse(savedItems) || [];
+
+      // If not saved, add the new item to the array
+      parsedSavedItems.push({
+        postID: currentTime,
+        departmentName,
+        profileImage: "",
+        time: currentTime,
+        file: "",
+        text,
+      });
+      // Save the updated array back to local storage
+      await AsyncStorage.setItem(
+        "savedNotifications",
+        JSON.stringify(parsedSavedItems)
+      );
+      //console.log(savedItems);
+      ToastAndroid.show("Notification!", ToastAndroid.LONG);
+    } catch (error) {}
+  };
 
   const checkAuthentication = async () => {
     const storedToken = await AsyncStorage.getItem("token");
@@ -144,13 +194,25 @@ export default function App() {
     setLoading(false);
   };
 
-  const validateToken = async (token) => {
-    // Implement your token validation logic here
-    // This may include checking expiration, revocation, etc.
-    // You can use server-side validation or decode the token client-side
-    // and check the expiration timestamp.
-    // Return true if the token is valid, false otherwise.
-    return true;
+  const validateToken = (token) => {
+    try {
+      // Decode the token
+      const decoded = jwtDecode(token);
+
+      // Check token expiration
+      const currentTimestamp = Math.floor(Date.now() / 1000);
+      if (decoded.exp < currentTimestamp) {
+        // Token is expired
+        return false;
+      }
+
+      // Token is valid
+      return true;
+    } catch (error) {
+      console.error(error);
+      // Error decoding or parsing the token
+      return false;
+    }
   };
 
   //Font Section

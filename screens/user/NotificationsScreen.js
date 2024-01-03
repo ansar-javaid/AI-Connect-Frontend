@@ -19,10 +19,11 @@ const NotificationScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [notifications, setNotifications] = useState([]);
   const [savedItems, setSavedItems] = useState([]);
+  const [savedNotifications, setSavedNotifications] = useState([]);
 
   useEffect(() => {
     getName();
-    fetchNotifications();
+    //fetchNotifications();
   }, []);
 
   useEffect(() => {
@@ -37,6 +38,23 @@ const NotificationScreen = ({ navigation }) => {
     };
 
     loadSavedItems();
+  }, []);
+
+  useEffect(() => {
+    const loadSavedNotifications = async () => {
+      try {
+        const savedNotification = await AsyncStorage.getItem(
+          "savedNotifications"
+        );
+        const parsedSavedNotification = JSON.parse(savedNotification) || [];
+        setSavedNotifications(parsedSavedNotification);
+        console.log(savedNotifications);
+      } catch (error) {
+        console.error("Error loading saved items from local storage:", error);
+      }
+    };
+
+    loadSavedNotifications();
   }, []);
 
   const fetchNotifications = async () => {
@@ -105,8 +123,8 @@ const NotificationScreen = ({ navigation }) => {
                 fontFamily: "kumbh-Regular",
               }}
             >
-              {savedItem.text?.length > 40
-                ? savedItem.text?.slice(0, 40) + "..."
+              {savedItem.text?.length > 30
+                ? savedItem.text?.slice(0, 30) + "..."
                 : savedItem.text}
             </Text>
             <Text
@@ -122,6 +140,44 @@ const NotificationScreen = ({ navigation }) => {
             </Text>
             <Image
               source={{ uri: savedItem.profileImage }}
+              style={styles.depicon}
+            />
+          </View>
+        </TouchableOpacity>
+      ))}
+
+      {savedNotifications.map((savedItem) => (
+        <TouchableOpacity
+          key={savedItem.postID}
+          style={styles.Notificationbox}
+          onPress={() => gotoDetailsComp(savedItem)}
+        >
+          <View>
+            <Text
+              style={{
+                left: 70,
+                top: 10,
+                width: 320,
+                fontFamily: "kumbh-Regular",
+              }}
+            >
+              {savedItem.departmentName?.length > 40
+                ? savedItem.departmentName?.slice(0, 40) + "..."
+                : savedItem.departmentName}
+            </Text>
+            <Text
+              style={{
+                alignSelf: "flex-end",
+                left: -30,
+                top: 35,
+                color: "#5C5C5C",
+                fontFamily: "kumbh-Regular",
+              }}
+            >
+              {moment(savedItem.time).calendar()}
+            </Text>
+            <Image
+              source={require("../../assets/bell.png")}
               style={styles.depicon}
             />
           </View>
@@ -161,7 +217,6 @@ const NotificationScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            
             <Text style={{ fontFamily: "kumbh-Regular" }}></Text>
           </TouchableOpacity>
 
@@ -191,13 +246,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#F4F4F4",
   },
   CuConect: {
-    fontSize: 25,      
+    fontSize: 25,
     marginLeft: 15,
     color: "#fff",
     fontFamily: "Urdu-Font",
     top: 30,
-    textAlign:"left"
-},
+    textAlign: "left",
+  },
   rectangletop: {
     position: "absolute",
     width: "100%",

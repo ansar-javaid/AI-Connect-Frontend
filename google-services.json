@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158360849693",
+    "project_id": "ai-connect-c7217",
+    "storage_bucket": "ai-connect-c7217.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158360849693:android:c726e00efd9b7d3900e5f4",
+        "android_client_info": {
+          "package_name": "com.ansar.munsalik"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkdyconB4yGYEumqZ8L1yxunx184vgzec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
