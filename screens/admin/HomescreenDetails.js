@@ -34,7 +34,7 @@ export default function HomescreenDetails({ navigation, route }) {
         colors={["#0094ff", "#00d1ff"]}
         style={styles.searchContainer}
       >
-        <Text style={styles.welcomeText}>{postDetail?.departmentName}</Text>
+        <Text style={[styles.welcomeText,styles.bold]}>{postDetail?.departmentName}</Text>
       </LinearGradient>
       <View style={styles.postsContainer}>
         <ScrollView
@@ -47,11 +47,11 @@ export default function HomescreenDetails({ navigation, route }) {
           }}
         >
           <View style={styles.headingContainer}>
-            <Text style={styles.departmentName}>
+            <Text style={[styles.departmentName,styles.bold]}>
               {postDetail?.departmentName}
             </Text>
-            <Text style={styles.time}>
-              {moment(postDetail?.time).fromNow()}
+            <Text style={[styles.time,styles.regular]}>
+              {moment(postDetail?.time).calendar()}
             </Text>
           </View>
 
@@ -89,9 +89,9 @@ function PostImages({ postDetail }) {
     return textArray.map((word, index) => {
       if (word.startsWith("http://") || word.startsWith("https://")) {
         return (
-          <Text key={index}>
+          <Text key={index} style={styles.regular}>
             {"\n"}
-            <Text
+            <Text 
               style={{ color: "blue" }}
               onPress={() => handleLinkPress(word)}
             >
@@ -101,7 +101,7 @@ function PostImages({ postDetail }) {
           </Text>
         );
       }
-      return <Text key={index}>{word} </Text>;
+      return <Text key={index} style={styles.regular}>{word} </Text>;
     });
   };
 
@@ -159,15 +159,10 @@ function PostImages({ postDetail }) {
     console.log("===0");
     return (
       <View style={styles.imgs}>
-        <Text style={styles.postText}>
+        <Text style={[styles.postText,styles.regular]}>
           {renderTextWithLinks(postDetail.text)}
         </Text>
         <View style={styles.statesContainer}>
-          <TouchableOpacity>
-            <Text>
-              {postDetail?.views} <Image source={view} />
-            </Text>
-          </TouchableOpacity>
           <TouchableOpacity>
             <Text>
               {postDetail?.shares} <Image source={share} />
@@ -185,7 +180,7 @@ function PostImages({ postDetail }) {
     console.log("else")
     return (
       <View style={styles.imgs}>
-        <Text style={styles.postText}>
+        <Text style={[styles.postText,styles.regular]}>
           {renderTextWithLinks(postDetail.text)}
         </Text>
         <Image source={postDetail.file[0]} />
@@ -208,6 +203,12 @@ function PostImages({ postDetail }) {
 }
 
 const styles = StyleSheet.create({
+  regular: {
+    fontFamily: "kumbh-Regular",
+  },
+  bold: {
+    fontFamily: "kumbh-Bold",
+  },
   container: {
     flex: 1,
     backgroundColor: "#f1f2f3",
@@ -241,7 +242,6 @@ const styles = StyleSheet.create({
   welcomeText: {
     paddingVertical: 32,
     fontSize: 28,
-    fontWeight: "600",
     marginLeft: 20,
     color: "#fff",
   },
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 15,
     paddingHorizontal: 15,
-    fontWeight: "700",
+    
     fontSize: 16,
   },
   statesContainer: {
