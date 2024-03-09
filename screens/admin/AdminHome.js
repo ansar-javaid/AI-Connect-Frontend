@@ -84,7 +84,7 @@ export default function AdminHome({ navigation }) {
       // Fetch the profile data using the profile ID from the API
       const response = await axios.get(
         `${BASE_URL}/profile/GetProfileOnly?id=${id}`,
-        { headers: { accept: "*/*" } }
+        { headers: { accept: "*/*", "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`, } }
       );
       if (response.status === 200) {
         // Dispatch the login action to update the global state with the fetched profile data
@@ -102,7 +102,7 @@ export default function AdminHome({ navigation }) {
     try {
       const response = await axios.get(
         `${BASE_URL}/posts/GetPostsByProfile?id=${id}`,
-        { headers: { accept: "*/*" } }
+        { headers: { accept: "*/*", "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`, } }
       );
       if (response.status === 200) {
         // Store the fetched posts in the state variable

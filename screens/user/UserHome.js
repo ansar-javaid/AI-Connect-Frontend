@@ -9,6 +9,7 @@ import {
   RefreshControl,
   Alert,
   ToastAndroid,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import { LinearGradient } from "expo-linear-gradient";
@@ -31,6 +32,12 @@ import Swiper from "react-native-swiper";
 import Spinner from "react-native-loading-spinner-overlay/lib";
 
 import * as Notifications from "expo-notifications";
+
+const { width } = Dimensions.get("window");
+
+// Calculate dynamic sizes based on screen width
+const welcomeTextSize = Math.min(width * 0.07, 28); // Adjust the multiplier as needed
+const searchContainerSize = Math.min(width * 0.35, 150); // Adjust the multiplier as needed
 
 export default function UserHome({ navigation }) {
   const dispatch = useDispatch();
@@ -138,7 +145,7 @@ export default function UserHome({ navigation }) {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
           },
         }
       );
@@ -167,7 +174,7 @@ export default function UserHome({ navigation }) {
         {
           headers: {
             accept: "*/*",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
           },
         }
       );
@@ -238,7 +245,7 @@ export default function UserHome({ navigation }) {
         >
           <TextInput
             style={styles.regular}
-            placeholder="        Search"
+            placeholder="Search"
             editable={false}
           />
         </TouchableOpacity>
@@ -369,6 +376,7 @@ export default function UserHome({ navigation }) {
 const styles = StyleSheet.create({
   regular: {
     fontFamily: "kumbh-Regular",
+    textAlign:"center"
   },
   bold: {
     fontFamily: "kumbh-Bold",
@@ -413,7 +421,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 28,
   },
   welcomeText: {
-    fontSize: 28,
+    fontSize: welcomeTextSize,
     marginLeft: 15,
     color: "#fff",
   },

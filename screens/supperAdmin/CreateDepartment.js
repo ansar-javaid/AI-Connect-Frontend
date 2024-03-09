@@ -45,7 +45,7 @@ export default function CreateDepartment({ navigation }) {
           // set the request headers
           accept: "*/*", // set the Accept header to text/plain
           "Content-Type": "application/json", // set the Content-Type header to application/json
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
         },
         data: {
           // set the request payload

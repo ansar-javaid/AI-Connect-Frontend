@@ -56,6 +56,7 @@ export default function Signup({ navigation }) {
         method: "POST",
         url: BASE_URL.concat("/auth/Register"),
         headers: {
+          "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
           accept: "*/*",
           "Content-Type": "application/json",
         },

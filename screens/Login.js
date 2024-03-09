@@ -20,8 +20,6 @@ import { BASE_URL } from "../api/config"; // import the base URL for the API
 import { FontAwesome } from "@expo/vector-icons"; // import icons from FontAwesome
 import jwtDecode from "jwt-decode"; // for decoding JSON Web Tokens
 import { StatusBar } from "expo-status-bar";
-import { Audio } from "expo-av";
-import signalRService from "../notifications/SignalRService";
 
 export default function Login({ navigation }) {
   // Some Use States
@@ -48,6 +46,7 @@ export default function Login({ navigation }) {
         url: BASE_URL.concat("/auth/Login"), // set the URL for the API endpoint using the base URL and the endpoint path
         headers: {
           // set the request headers
+          "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
           accept: "text/plain", // set the Accept header to text/plain
           "Content-Type": "application/json", // set the Content-Type header to application/json
         },
@@ -184,7 +183,7 @@ export default function Login({ navigation }) {
           paddingTop: 10,
           borderTopLeftRadius: 50,
           borderTopRightRadius: 50,
-          marginTop: -40,
+          marginTop: "-20%",
         }}
       >
         <View
@@ -387,7 +386,7 @@ const styles = StyleSheet.create({
   },
   topImage: {
     top: 0,
-    minHeight: "42%",
+    minHeight: "50%",
     flex: 1,
   },
   logoImage: {
@@ -408,7 +407,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 30,
     position: "absolute",
-    top: 240,
+    top: "30%",
     width: "100%",
     textAlign: "center",
     fontFamily: "kumbh-Bold",

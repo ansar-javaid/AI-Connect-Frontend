@@ -92,7 +92,7 @@ export default function CreatePost(props) {
           headers: {
             accept: "*/*",
             "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
           },
         },
         //wating animation

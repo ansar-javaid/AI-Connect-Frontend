@@ -84,10 +84,10 @@ export default function CreateProfile({ navigation }) {
       const token = await AsyncStorage.getItem("token");
       const [departmentResponse, usersResponse] = await Promise.all([
         axios.get(`${BASE_URL}/profile/GetAllDepartment`, {
-          headers: { accept: "*/*", Authorization: `Bearer ${token}` },
+          headers: { accept: "*/*",  "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`, },
         }),
         axios.get(`${BASE_URL}/profile/AvailableUsers`, {
-          headers: { accept: "*/*", Authorization: `Bearer ${token}` },
+          headers: { accept: "*/*",  "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`, },
         }),
       ]);
 
@@ -153,7 +153,7 @@ export default function CreateProfile({ navigation }) {
         headers: {
           accept: "application/json",
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
         },
         data: formData,
       },

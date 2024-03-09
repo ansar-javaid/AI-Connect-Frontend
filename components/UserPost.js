@@ -68,7 +68,7 @@ export default function UserPost({
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
           },
         }
       );

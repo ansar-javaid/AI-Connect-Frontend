@@ -33,7 +33,7 @@ export default function Search() {
     try {
       const token = await AsyncStorage.getItem("token");
       const response = await axios.get(`${BASE_URL}/profile/GetAllProfiles`, {
-        headers: { accept: "*/*", Authorization: `Bearer ${token}` },
+        headers: { accept: "*/*",  "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs` },
       });
 
       if (response.status === 200) {

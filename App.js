@@ -83,6 +83,7 @@ export default function App() {
     try {
       const response = await axios.get(`${BASE_URL}/posts/LoadAllImages`, {
         headers: {
+          "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
           accept: "*/*",
         },
       });

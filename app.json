@@ -2,7 +2,7 @@
   "expo": {
     "slug": "comsats-munsalik",
     "name": "COMSATS Munsalik",
-    "version":"1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/app.png",
     "splash": {
@@ -10,19 +10,28 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD",
+      "url": "https://u.expo.dev/a1f878b2-eb76-4b4e-b3e2-bca10bd711b1"
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/app.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.ansar.munsalik",
-      "versionCode":"1",
+      "versionCode": "1",
       "googleServicesFile": "./google-services.json"
     },
     "extra": {
       "eas": {
         "projectId": "a1f878b2-eb76-4b4e-b3e2-bca10bd711b1"
       }
-    }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "ios": {}
   }
 }

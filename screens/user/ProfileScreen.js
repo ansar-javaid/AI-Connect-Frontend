@@ -93,7 +93,7 @@ export default function ProfileScreen1({ route, navigation }) {
 
       const response = await axios.get(
         `${BASE_URL}/subscription/SubscribedProfilePosts?profileId=${id}&Email=${email}&page=${page}`,
-        { headers: { accept: "*/*", Authorization: `Bearer ${token}` } }
+        { headers: { accept: "*/*",  "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`, } }
       );
       if (response.status === 200) {
         // Store the fetched posts in the state variable
@@ -118,7 +118,7 @@ export default function ProfileScreen1({ route, navigation }) {
       const token = await AsyncStorage.getItem("token");
       const response = await axios.get(
         `${BASE_URL}/subscription/ProfileStatus?Email=${email}&ProfileId=${id}`,
-        { headers: { accept: "*/*", Authorization: `Bearer ${token}` } }
+        { headers: { accept: "*/*",  "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`, } }
       );
       if (response.status === 200) {
         if (response.data.value.status === true) {
@@ -140,7 +140,7 @@ export default function ProfileScreen1({ route, navigation }) {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          "Authorization": `Basic MTExNjU1MzU6NjAtZGF5ZnJlZXRyaWFs`,
         },
         body: JSON.stringify({
           email: email,
